@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.lang.String;
 import javax.persistence.*;
 
+import com.imag.ecom.categorie.Categorie;
 import com.imag.ecom.produit.Produit;
 
 /**
@@ -15,11 +16,21 @@ import com.imag.ecom.produit.Produit;
 public class Dessert extends Produit implements Serializable {
 
 	private String nature;
+	private int quantite;
 	private static final long serialVersionUID = 1L;
 
 	public Dessert() {
 		super();
 	}
+	
+
+	public Dessert(String nom, double prix, String url, Categorie categorie,String nature,int quantite) {
+		super(nom, prix, url, categorie);
+		this.nature=nature;
+		this.quantite=quantite;
+		// TODO Auto-generated constructor stub
+	}
+
 
 	public String getNature() {
 		return nature;
@@ -28,5 +39,15 @@ public class Dessert extends Produit implements Serializable {
 	public void setNature(String nature) {
 		this.nature = nature;
 	}
+
+	public int getQuantite() {
+		return quantite;
+	}
+
+	public void setQuantite(int quantite) {
+		this.quantite = quantite;
+	}
+	
+	
 
 }

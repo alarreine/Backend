@@ -14,7 +14,7 @@ import javax.persistence.criteria.Root;
 /**
  * Session Bean implementation class Repository
  */
-@Stateless
+@Stateless(name = "PizzaRepository")
 @LocalBean
 public class Repository implements RepositoryLocal {
 
@@ -62,8 +62,8 @@ public class Repository implements RepositoryLocal {
 
 	@Override
 	public Pizza getByID(Long id) {
-		em.find(Pizza.class, id);
-		return null;
+		Pizza p = em.find(Pizza.class, id);
+		return p;
 	}
 
 	@Override

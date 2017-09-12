@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.imag.ecom</groupId>
+		<artifactId>GizzaBackend</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+	<groupId>com.imag.ecom</groupId>
+	<artifactId>GizzaBackend-EAR</artifactId>
+	<version>1.0-SNAPSHOT</version>
+	<name>GizzaBackend-EAR</name>
+	<packaging>ear</packaging>
+	<url>http://maven.apache.org</url>
+	<dependencies>
+
+		<!-- Depend on the ejb module and war so that we can package them -->
+		<dependency>
+			<groupId>com.imag.ecom</groupId>
+			<artifactId>GizzaBackend-API</artifactId>
+			<type>war</type>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.imag.ecom</groupId>
+			<artifactId>GizzaBackend-EJB</artifactId>
+			<type>ejb</type>
+			<version>1.0-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-ear-plugin</artifactId>
+				<version>${version.ear.plugin}</version>
+				<configuration>
+					<!-- Tell Maven we are using Java EE 7 -->
+					<version>7</version>
+					<!-- Use Java EE ear libraries as needed. Java EE ear libraries are 
+						in easy way to package any libraries needed in the ear, and automatically 
+						have any modules (EJB-JARs and WARs) use them -->
+					<defaultLibBundleDir>lib</defaultLibBundleDir>
+					<fileNameMapping>no-version</fileNameMapping>
+				</configuration>
+			</plugin>
+			<!-- The WildFly plugin deploys your ear to a local WildFly container -->
+			<!-- Due to Maven's lack of intelligence with EARs we need to configure 
+				the wildfly maven plugin to skip deployment for all modules. We then enable 
+				it specifically in the ear module. -->
+			<plugin>
+				<groupId>org.wildfly.plugins</groupId>
+				<artifactId>wildfly-maven-plugin</artifactId>
+				<configuration>
+					<filename>${project.artifactId}.ear</filename>
+					<skip>false</skip>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
