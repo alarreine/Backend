@@ -1,4 +1,4 @@
-package com.imag.ecom.produit.boisson;
+package com.imag.ecom.user;
 
 import java.util.List;
 
@@ -10,11 +10,10 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
-
 /**
  * Session Bean implementation class Repository
  */
-@Stateless(name = "BoissonRepository")
+@Stateless(name = "UserRepository")
 @LocalBean
 public class Repository implements RepositoryLocal {
 
@@ -25,48 +24,48 @@ public class Repository implements RepositoryLocal {
 	 * Default constructor.
 	 */
 	public Repository() {
-
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public Boisson add(Boisson b) {
-		em.persist(b);
-		return b;
+	public User add(User u) {
+		em.persist(u);
+		return u;
 	}
 
 	@Override
-	public Boisson update(Boisson b) {
-		em.merge(b);
-		return b;
+	public User update(User u) {
+		em.merge(u);
+		return u;
 	}
 
 	@Override
 	public void delete(Long id) {
-		Boisson b = getByID(id);
-		em.remove(b);
+		User u = getByID(id);
+		em.remove(u);
 
 	}
 
 	@Override
-	public List<Boisson> getAll() {
+	public List<User> getAll() {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<Boisson> criteria = cb.createQuery(Boisson.class);
-		Root<Boisson> boisson = criteria.from(Boisson.class);
+		CriteriaQuery<User> criteria = cb.createQuery(User.class);
+		Root<User> boisson = criteria.from(User.class);
 		criteria.select(boisson).orderBy(cb.asc(boisson.get("nom")));
 		return em.createQuery(criteria).getResultList();
 	}
 
 	@Override
-	public Boisson getByID(Long id) {
-		Boisson b = em.find(Boisson.class, id);
-		return b;
+	public User getByID(Long id) {
+		User u = em.find(User.class, id);
+		return u;
 	}
 
 	@Override
-	public Boisson getByName(String name) {
+	public User getByName(String name) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<Boisson> criteria = cb.createQuery(Boisson.class);
-		Root<Boisson> boisson = criteria.from(Boisson.class);
+		CriteriaQuery<User> criteria = cb.createQuery(User.class);
+		Root<User> boisson = criteria.from(User.class);
 		criteria.select(boisson).where(cb.equal(boisson.get("nom"), name));
 		return em.createQuery(criteria).getSingleResult();
 	}

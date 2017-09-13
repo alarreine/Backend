@@ -2,7 +2,11 @@ package com.imag.ecom.role;
 
 import java.io.Serializable;
 import java.lang.String;
+import java.util.Collection;
+
 import javax.persistence.*;
+
+import com.imag.ecom.user.User;
 
 /**
  * Entity implementation class for Entity: Role
@@ -12,14 +16,17 @@ import javax.persistence.*;
 
 public class Role implements Serializable {
 
-	   
 	@Id
 	private String libelle;
+
+	@ManyToMany(mappedBy="roles")
+	private Collection<User> users;
 	private static final long serialVersionUID = 1L;
 
 	public Role() {
 		super();
-	}   
+	}
+
 	public String getLibelle() {
 		return this.libelle;
 	}
@@ -27,5 +34,5 @@ public class Role implements Serializable {
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
-   
+
 }

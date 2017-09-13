@@ -26,13 +26,28 @@ public class User implements Serializable {
 	private String prenom;
 	private String telephone;
 	private String adresse;
-	@OneToMany
+	@ManyToMany
 	private Collection<Role> roles;
 	private static final long serialVersionUID = 1L;
 
 	public User() {
 		super();
-	}   
+	}  
+	
+	
+	public User(String email, String password, String nom, String prenom, String telephone, String adresse,
+			Collection<Role> roles) {
+		super();
+		this.email = email;
+		this.password = password;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.telephone = telephone;
+		this.adresse = adresse;
+		this.roles = roles;
+	}
+
+
 	public String getEmail() {
 		return this.email;
 	}

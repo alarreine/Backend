@@ -1,12 +1,11 @@
 package com.imag.ecom.produit.pizza;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -18,10 +17,9 @@ import javax.persistence.criteria.Root;
 @LocalBean
 public class Repository implements RepositoryLocal {
 
-	@Inject
+	@PersistenceContext
 	EntityManager em;
-	@Inject
-	Logger log;
+	
 
 	/**
 	 * Default constructor.
@@ -33,7 +31,6 @@ public class Repository implements RepositoryLocal {
 	@Override
 	public Pizza add(Pizza p) {
 		em.persist(p);
-		log.info("Enrégistrement de la pizza " + p.getNom());
 		return p;
 	}
 
