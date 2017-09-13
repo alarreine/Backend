@@ -19,4 +19,10 @@ public class DessertCategorie extends Categorie implements Serializable {
 		super();
 	}
 
+	public DessertCategorie(String libelle) {
+		super(libelle);
+		// TODO Auto-generated constructor stub
+	}
+
+	
 }

@@ -6,6 +6,7 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
+import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
@@ -16,6 +17,9 @@ import javax.ws.rs.core.MediaType;
 
 import com.imag.ecom.categorie.Categorie;
 import com.imag.ecom.categorie.Repository;
+import com.imag.ecom.categorie.boisson.BoissonCategorie;
+import com.imag.ecom.categorie.dessert.DessertCategorie;
+import com.imag.ecom.categorie.pizza.PizzaCategorie;
 
 @Path("/categorie")
 @RequestScoped
@@ -25,9 +29,24 @@ public class RestService {
 
 	@POST
 	@Path("/add")
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public Categorie add(Categorie c) {
+	public Categorie add(@FormParam(value = "type") String type,
+			@FormParam(value= "libelle") String libelle) {
+		Categorie c =null;
+		switch (type) {
+		case "BOISSON":
+			c = new BoissonCategorie(libelle);
+			break;
+		case "PIZZA":
+			c = new PizzaCategorie(libelle);
+			break;
+		case "DESSERT":
+			c = new DessertCategorie(libelle);
+			break;
+
+		default:
+			break;
+		}
 		return repository.add(c);
 	}
 

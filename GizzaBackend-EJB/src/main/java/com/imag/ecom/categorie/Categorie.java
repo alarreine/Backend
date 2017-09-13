@@ -7,6 +7,7 @@ import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -24,6 +25,7 @@ import com.imag.ecom.produit.Produit;
 public class Categorie implements Serializable {
 
 	@Id
+	@GeneratedValue
 	private Long id;
 
 	@OneToMany(mappedBy = "categorie", fetch = FetchType.LAZY)
@@ -34,6 +36,13 @@ public class Categorie implements Serializable {
 	public Categorie() {
 		super();
 	}
+
+	
+	public Categorie(String libelle) {
+		super();
+		this.libelle = libelle;
+	}
+
 
 	public Long getId() {
 		return this.id;

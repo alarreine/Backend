@@ -19,5 +19,9 @@ public class BoissonCategorie extends Categorie implements Serializable {
 	public BoissonCategorie() {
 		super();
 	}
+
+	public BoissonCategorie(String libelle) {
+		super(libelle);
+	}
    
 }

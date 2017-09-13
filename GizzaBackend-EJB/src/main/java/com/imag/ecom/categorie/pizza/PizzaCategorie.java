@@ -19,5 +19,11 @@ public class PizzaCategorie extends Categorie implements Serializable {
 	public PizzaCategorie() {
 		super();
 	}
+
+	public PizzaCategorie(String libelle) {
+		super(libelle);
+		
+	}
+	
    
 }
