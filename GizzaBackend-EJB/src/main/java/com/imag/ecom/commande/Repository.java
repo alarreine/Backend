@@ -1,4 +1,4 @@
-package com.imag.ecom.categorie;
+package com.imag.ecom.commande;
 
 import java.util.List;
 
@@ -13,7 +13,7 @@ import javax.persistence.criteria.Root;
 /**
  * Session Bean implementation class Repository
  */
-@Stateless(name = "CategoryRepository")
+@Stateless(name = "CommandeRepository")
 @LocalBean
 public class Repository implements RepositoryLocal {
 
@@ -28,46 +28,46 @@ public class Repository implements RepositoryLocal {
 	}
 
 	@Override
-	public Categorie add(Categorie c) {
+	public Commande add(Commande c) {
 		em.persist(c);
 		return c;
 	}
 
 	@Override
-	public Categorie update(Categorie c) {
+	public Commande update(Commande c) {
 		em.merge(c);
 		return c;
 	}
 
 	@Override
 	public void delete(Long id) {
-		Categorie c = getByID(id);
+		Commande c = getByID(id);
 		em.remove(c);
 
 	}
 
 	@Override
-	public List<Categorie> getAll() {
+	public List<Commande> getAll() {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<Categorie> criteria = cb.createQuery(Categorie.class);
-		Root<Categorie> categorie = criteria.from(Categorie.class);
-		criteria.select(categorie).orderBy(cb.asc(categorie.get("libelle")));
+		CriteriaQuery<Commande> criteria = cb.createQuery(Commande.class);
+		Root<Commande> commande = criteria.from(Commande.class);
+		criteria.select(commande).orderBy(cb.asc(commande.get("libelle")));
 		return em.createQuery(criteria).getResultList();
 
 	}
 
 	@Override
-	public Categorie getByID(Long id) {
-		Categorie c = em.find(Categorie.class, id);
+	public Commande getByID(Long id) {
+		Commande c = em.find(Commande.class, id);
 		return c;
 	}
 
 	@Override
-	public Categorie getByName(String name) {
+	public Commande getByName(String name) {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<Categorie> criteria = cb.createQuery(Categorie.class);
-		Root<Categorie> categorie = criteria.from(Categorie.class);
-		criteria.select(categorie).where(cb.equal(categorie.get("libelle"), name));
+		CriteriaQuery<Commande> criteria = cb.createQuery(Commande.class);
+		Root<Commande> commande = criteria.from(Commande.class);
+		criteria.select(commande).where(cb.equal(commande.get("libelle"), name));
 		return em.createQuery(criteria).getSingleResult();
 	}
 
