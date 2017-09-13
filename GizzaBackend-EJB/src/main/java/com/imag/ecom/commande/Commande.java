@@ -21,7 +21,7 @@ public class Commande implements Serializable {
 	@GeneratedValue
 	private Long id;
 	private Date date;
-	@ManyToMany
+	@OneToMany
 	private Collection<Produit> produits;
 	private static final long serialVersionUID = 1L;
 
@@ -41,6 +41,12 @@ public class Commande implements Serializable {
 
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	public Collection<Produit> getProduits() {
+		return produits;
+	}
+	public void setProduits(Collection<Produit> produits) {
+		this.produits = produits;
 	}
    
 }

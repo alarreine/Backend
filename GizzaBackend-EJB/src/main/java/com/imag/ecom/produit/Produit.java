@@ -1,11 +1,19 @@
 package com.imag.ecom.produit;
 
 import java.io.Serializable;
-import java.lang.Long;
-import java.lang.String;
-import javax.persistence.*;
+
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.imag.ecom.categorie.Categorie;
+import com.imag.ecom.commande.Commande;
 
 /**
  * Entity implementation class for Entity: Produit
@@ -28,6 +36,7 @@ public abstract class Produit implements Serializable {
 	@JoinColumn(name="id_categorie")
 	private Categorie categorie;
 	private static final long serialVersionUID = 1L;
+	
 
 	public Produit() {
 		super();
