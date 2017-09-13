@@ -21,7 +21,7 @@ public class Commande implements Serializable {
 	@GeneratedValue
 	private Long id;
 	private Date date;
-	@ManyToMany(mappedBy="commande")
+	@OneToMany
 	private Collection<Produit> produits;
 	private static final long serialVersionUID = 1L;
 

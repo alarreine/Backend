@@ -37,9 +37,6 @@ public abstract class Produit implements Serializable {
 	private Categorie categorie;
 	private static final long serialVersionUID = 1L;
 	
-	@ManyToOne
-	@JoinColumn(name="id_commande")
-	private Commande commande;
 
 	public Produit() {
 		super();
