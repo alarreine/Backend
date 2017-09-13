@@ -28,6 +28,7 @@ public class Categorie implements Serializable {
 
 	@OneToMany(mappedBy = "categorie", fetch = FetchType.LAZY)
 	private Collection<Produit> produits;
+	private String libelle;
 	private static final long serialVersionUID = 1L;
 
 	public Categorie() {
@@ -41,5 +42,23 @@ public class Categorie implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	public Collection<Produit> getProduits() {
+		return produits;
+	}
+
+	public void setProduits(Collection<Produit> produits) {
+		this.produits = produits;
+	}
+
+	public String getLibelle() {
+		return libelle;
+	}
+
+	public void setLibelle(String libelle) {
+		this.libelle = libelle;
+	}
+	
+	
 
 }
