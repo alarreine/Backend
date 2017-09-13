@@ -4,7 +4,7 @@
   <module>
     <web>
       <web-uri>GizzaBackend-API.war</web-uri>
-      <context-root>/gizza/api</context-root>
+      <context-root>/GizzaBackend-API</context-root>
     </web>
   </module>
   <module>
