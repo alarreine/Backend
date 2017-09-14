@@ -51,7 +51,7 @@ public class Repository implements RepositoryLocal {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Commande> criteria = cb.createQuery(Commande.class);
 		Root<Commande> commande = criteria.from(Commande.class);
-		criteria.select(commande).orderBy(cb.asc(commande.get("libelle")));
+		criteria.select(commande).orderBy(cb.asc(commande.get("date")));
 		return em.createQuery(criteria).getResultList();
 
 	}
@@ -62,13 +62,6 @@ public class Repository implements RepositoryLocal {
 		return c;
 	}
 
-	@Override
-	public Commande getByName(String name) {
-		CriteriaBuilder cb = em.getCriteriaBuilder();
-		CriteriaQuery<Commande> criteria = cb.createQuery(Commande.class);
-		Root<Commande> commande = criteria.from(Commande.class);
-		criteria.select(commande).where(cb.equal(commande.get("libelle"), name));
-		return em.createQuery(criteria).getSingleResult();
-	}
+	
 
 }

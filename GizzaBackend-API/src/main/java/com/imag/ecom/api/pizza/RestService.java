@@ -17,7 +17,7 @@ import javax.ws.rs.core.MediaType;
 import com.imag.ecom.produit.pizza.Pizza;
 import com.imag.ecom.produit.pizza.Repository;
 
-@Path("/pizza")
+@Path("/admin/pizza")
 @RequestScoped
 public class RestService {
 
