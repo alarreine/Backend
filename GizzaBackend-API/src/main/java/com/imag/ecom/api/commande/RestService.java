@@ -20,7 +20,7 @@ import com.imag.ecom.commande.Repository;
 @Path("/commande")
 @RequestScoped
 public class RestService {
-	
+
 	@Inject
 	private Repository repository;
 
@@ -28,7 +28,7 @@ public class RestService {
 	@Path("/add")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Commande add(Commande c) {
-//		Commande c=new Commande();
+		// Commande c=new Commande();
 		return repository.add(c);
 	}
 
@@ -52,13 +52,6 @@ public class RestService {
 		return repository.getByID(id);
 	}
 
-	@GET
-	@Path("/get/{nom}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Commande getByName(@PathParam(value = "nom") String name) {
-		return repository.getByName(name);
-	}
-
 	@PUT
 	@Path("/update")
 	@Consumes(MediaType.APPLICATION_JSON)
@@ -66,6 +59,5 @@ public class RestService {
 	public Commande update(Commande c) {
 		return repository.update(c);
 	}
-
 
 }
