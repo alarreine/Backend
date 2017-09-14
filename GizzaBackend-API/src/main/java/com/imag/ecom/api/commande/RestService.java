@@ -28,7 +28,6 @@ public class RestService {
 	@Path("/add")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Commande add(Commande c) {
-//		Commande c=new Commande();
 		return repository.add(c);
 	}
 
@@ -50,13 +49,6 @@ public class RestService {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Commande getByID(@PathParam(value = "id") Long id) {
 		return repository.getByID(id);
-	}
-
-	@GET
-	@Path("/get/{nom}")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Commande getByName(@PathParam(value = "nom") String name) {
-		return repository.getByName(name);
 	}
 
 	@PUT

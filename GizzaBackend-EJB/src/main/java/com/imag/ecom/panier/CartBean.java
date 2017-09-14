@@ -25,7 +25,7 @@ public class CartBean implements Cart {
 		while (iter.hasNext()) {
 			CartItem item = iter.next();
 			if (item.getProduit().getNom().equals(article.getProduit().getNom())) {
-				item.setQuantite(item.getQuantite()+quantite);
+				item.setQuantite(item.getQuantite() + quantite);
 				return;
 			}
 		}
@@ -34,38 +34,50 @@ public class CartBean implements Cart {
 	}
 
 	@Override
-	public boolean update(int id, int newQty) {
-		// TODO Auto-generated method stub
+	public boolean update(CartItem article, int nouvelleQuantite) {
+		Iterator<CartItem> iter = cart.iterator();
+		while (iter.hasNext()) {
+			CartItem item = iter.next();
+			if (item.getProduit().getNom().equals(article.getProduit().getNom())) {
+
+				item.setQuantite(nouvelleQuantite);
+				return true;
+			}
+		}
 		return false;
 	}
 
 	@Override
-	public void remove(int id) {
-		// TODO Auto-generated method stub
+	public void remove(CartItem article) {
+		Iterator<CartItem> iter = cart.iterator();
+		while (iter.hasNext()) {
+			CartItem item = iter.next();
+			if (item.getProduit().getNom().equals(article.getProduit().getNom())) {
+				cart.remove(item);
+				return;
+			}
+		}
 
 	}
 
 	@Override
 	public int size() {
-		// TODO Auto-generated method stub
-		return 0;
+		return cart.size();
 	}
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return size() == 0;
 	}
 
 	@Override
 	public List<CartItem> getItems() {
-		// TODO Auto-generated method stub
-		return null;
+		return cart;
 	}
 
 	@Override
 	public void clear() {
-		// TODO Auto-generated method stub
+		cart.clear();
 
 	}
 

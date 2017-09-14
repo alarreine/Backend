@@ -16,5 +16,4 @@ public interface RepositoryLocal {
 
 	public Commande getByID(Long id);
 
-	public Commande getByName(String name);
 }
