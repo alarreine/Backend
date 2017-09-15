@@ -19,7 +19,7 @@ public class Role implements Serializable {
 	@Id
 	private String libelle;
 
-	@ManyToMany(mappedBy="roles")
+	@OneToMany(mappedBy="role")
 	private Collection<User> users;
 	private static final long serialVersionUID = 1L;
 

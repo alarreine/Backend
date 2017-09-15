@@ -28,7 +28,7 @@ public class RestService {
 	@Path("/add")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Commande add(Commande c) {
-		// Commande c=new Commande();
+
 		return repository.add(c);
 	}
 

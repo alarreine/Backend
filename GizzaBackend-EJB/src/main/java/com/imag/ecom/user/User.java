@@ -2,8 +2,6 @@ package com.imag.ecom.user;
 
 import java.io.Serializable;
 import java.lang.String;
-import java.util.Collection;
-
 import javax.persistence.*;
 import org.hibernate.validator.constraints.Email;
 
@@ -26,8 +24,9 @@ public class User implements Serializable {
 	private String prenom;
 	private String telephone;
 	private String adresse;
-	@ManyToMany
-	private Collection<Role> roles;
+	@ManyToOne
+	@JoinColumn(name="role")
+	private Role role;
 	private static final long serialVersionUID = 1L;
 
 	public User() {
@@ -36,7 +35,7 @@ public class User implements Serializable {
 	
 	
 	public User(String email, String password, String nom, String prenom, String telephone, String adresse,
-			Collection<Role> roles) {
+			Role role) {
 		super();
 		this.email = email;
 		this.password = password;
@@ -44,7 +43,7 @@ public class User implements Serializable {
 		this.prenom = prenom;
 		this.telephone = telephone;
 		this.adresse = adresse;
-		this.roles = roles;
+		this.role = role;
 	}
 
 

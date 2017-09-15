@@ -9,9 +9,9 @@ public interface Cart {
 
 	public void add(CartItem article, int quantite);
 
-	public boolean update(int id, int quantite);
+	public boolean update(CartItem article,  int nouvelleQuantite);
 
-	public void remove(int id);
+	public void remove(CartItem article);
 
 	public int size();
 
