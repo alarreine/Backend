@@ -16,10 +16,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.imag.ecom.categorie.Categorie;
+import com.imag.ecom.categorie.CategoryType;
 import com.imag.ecom.categorie.Repository;
-import com.imag.ecom.categorie.boisson.BoissonCategorie;
-import com.imag.ecom.categorie.dessert.DessertCategorie;
-import com.imag.ecom.categorie.pizza.PizzaCategorie;
+import com.imag.ecom.produit.Produit;
+import com.imag.ecom.produit.pizza.Pizza;
 
 @Path("/categorie")
 @RequestScoped
@@ -30,23 +30,11 @@ public class RestService {
 	@POST
 	@Path("/add")
 	@Produces(MediaType.APPLICATION_JSON)
-	public Categorie add(@FormParam(value = "type") String type,
-			@FormParam(value= "libelle") String libelle) {
-		Categorie c =null;
-		switch (type) {
-		case "BOISSON":
-			c = new BoissonCategorie(libelle);
-			break;
-		case "PIZZA":
-			c = new PizzaCategorie(libelle);
-			break;
-		case "DESSERT":
-			c = new DessertCategorie(libelle);
-			break;
-
-		default:
-			break;
-		}
+	public Categorie add(@FormParam(value = "type") String type, @FormParam(value = "libelle") String libelle) {
+		Categorie c = new Categorie();
+		c.setType(CategoryType.fromString(type));
+		c.setLibelle(libelle);
+		//c.addProduit(new Pizza());
 		return repository.add(c);
 	}
 

@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
@@ -32,11 +33,10 @@ public abstract class Produit implements Serializable {
 	private double prix;
 	private String url;
 
-	@ManyToOne
-	@JoinColumn(name="id_categorie")
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "id_categorie")
 	private Categorie categorie;
 	private static final long serialVersionUID = 1L;
-	
 
 	public Produit() {
 		super();
@@ -82,10 +82,12 @@ public abstract class Produit implements Serializable {
 		this.url = url;
 	}
 
-	public Categorie getCategorie() {
-		return categorie;
+	public Long getCategorieId() {
+		if(this.categorie==null) {
+			return null;
+		}
+		return this.categorie.getId();
 	}
-
 	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
 	}
