@@ -12,7 +12,7 @@ import com.imag.ecom.role.Role;
  *
  */
 @Entity
-
+@Table(name="Utilisateur")
 public class User implements Serializable {
 
 	   
