@@ -1,6 +1,8 @@
 package com.imag.ecom.produit;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.DiscriminatorType;
@@ -12,9 +14,9 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import com.imag.ecom.categorie.Categorie;
-import com.imag.ecom.commande.Commande;
 
 /**
  * Entity implementation class for Entity: Produit
@@ -36,6 +38,8 @@ public abstract class Produit implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_categorie")
 	private Categorie categorie;
+	@OneToMany(mappedBy = "produit")
+	private Set<ProduitCommande> produitsCommandes = new HashSet<ProduitCommande>();
 	private static final long serialVersionUID = 1L;
 
 	public Produit() {
@@ -83,13 +87,26 @@ public abstract class Produit implements Serializable {
 	}
 
 	public Long getCategorieId() {
-		if(this.categorie==null) {
+		if (this.categorie == null) {
 			return null;
 		}
 		return this.categorie.getId();
 	}
+
 	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
+	}
+
+	public Set<ProduitCommande> getProduitsCommandes() {
+		return produitsCommandes;
+	}
+
+	public void setUserGroups(Set<ProduitCommande> ProduitsCommandes) {
+		this.produitsCommandes = ProduitsCommandes;
+	}
+
+	public void addProduitCommande(ProduitCommande produitCommande) {
+		this.produitsCommandes.add(produitCommande);
 	}
 
 }

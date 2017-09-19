@@ -1,12 +1,18 @@
 package com.imag.ecom.commande;
 
 import java.io.Serializable;
-import java.lang.Long;
-import java.util.Collection;
 import java.util.Date;
-import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
-import com.imag.ecom.produit.Produit;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import com.imag.ecom.produit.ProduitCommande;
 
 /**
  * Entity implementation class for Entity: Commande
@@ -16,25 +22,27 @@ import com.imag.ecom.produit.Produit;
 
 public class Commande implements Serializable {
 
-	   
 	@Id
 	@GeneratedValue
 	private Long id;
+	@Temporal(TemporalType.DATE)
 	private Date date;
-	@OneToMany
-	private Collection<Produit> produits;
+	@OneToMany(mappedBy = "commande")
+	private Set<ProduitCommande> produitsCommandes = new HashSet<ProduitCommande>();
 	private static final long serialVersionUID = 1L;
 
 	public Commande() {
 		super();
-	}   
+	}
+
 	public Long getId() {
 		return this.id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
-	}   
+	}
+
 	public Date getDate() {
 		return this.date;
 	}
@@ -42,11 +50,17 @@ public class Commande implements Serializable {
 	public void setDate(Date date) {
 		this.date = date;
 	}
-	public Collection<Produit> getProduits() {
-		return produits;
+
+	public Set<ProduitCommande> getProduitsCommandes() {
+		return produitsCommandes;
 	}
-	public void setProduits(Collection<Produit> produits) {
-		this.produits = produits;
+
+	public void setUserGroups(Set<ProduitCommande> ProduitsCommandes) {
+		this.produitsCommandes = ProduitsCommandes;
 	}
-   
+
+	public void addProduitCommande(ProduitCommande produitCommande) {
+		this.produitsCommandes.add(produitCommande);
+	}
+
 }
