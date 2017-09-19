@@ -17,10 +17,10 @@ public class ProduitCommande implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_produit")
 	private Produit produit;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_commande")
 	private Commande commande;
 	private int quantite;
@@ -38,16 +38,8 @@ public class ProduitCommande implements Serializable {
 		this.id = id;
 	}
 
-	public Produit getProduit() {
-		return this.produit;
-	}
-
 	public void setProduit(Produit produit) {
 		this.produit = produit;
-	}
-
-	public Commande getCommande() {
-		return this.commande;
 	}
 
 	public void setCommande(Commande commande) {

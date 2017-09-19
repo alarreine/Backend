@@ -38,7 +38,7 @@ public abstract class Produit implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_categorie")
 	private Categorie categorie;
-	@OneToMany(mappedBy = "produit")
+	@OneToMany(fetch = FetchType.EAGER,mappedBy = "produit")
 	private Set<ProduitCommande> produitsCommandes = new HashSet<ProduitCommande>();
 	private static final long serialVersionUID = 1L;
 

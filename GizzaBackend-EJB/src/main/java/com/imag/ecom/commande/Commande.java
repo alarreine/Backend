@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
@@ -27,7 +28,7 @@ public class Commande implements Serializable {
 	private Long id;
 	@Temporal(TemporalType.DATE)
 	private Date date;
-	@OneToMany(mappedBy = "commande")
+	@OneToMany(mappedBy = "commande",fetch = FetchType.EAGER)
 	private Set<ProduitCommande> produitsCommandes = new HashSet<ProduitCommande>();
 	private static final long serialVersionUID = 1L;
 
