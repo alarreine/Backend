@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.imag.ecom.produit.Produit;
+import com.imag.ecom.shared.CategoryType;
 
 /**
  * Entity implementation class for Entity: Categorie

@@ -1,4 +1,4 @@
-package com.imag.ecom.api.user;
+package com.imag.ecom.api.boisson;
 
 import java.util.List;
 
@@ -14,47 +14,48 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import com.imag.ecom.user.Repository;
-import com.imag.ecom.user.User;
+import com.imag.ecom.produit.boisson.Boisson;
+import com.imag.ecom.produit.boisson.BoissonRepository;
 
-@Path("/user")
+@Path("/boisson")
 @RequestScoped
-public class RestService {
+public class BoissonApi {
+
 	@Inject
-	private Repository repository;
+	private BoissonRepository repository;
 
 	@POST
 	@Path("/add")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public User add(User u) {
-		return repository.add(u);
+	public Boisson add(Boisson b) {
+		return repository.create(b);
 	}
 
 	@DELETE
 	@Path("/delete/{id}")
 	public void delete(@PathParam(value = "id") Long id) {
-		repository.delete(id);
+		repository.remove(repository.find(id));
 	}
 
 	@GET
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<User> getAll() {
-		return repository.getAll();
+	public List<Boisson> getAll() {
+		return repository.findAll();
 	}
 
 	@GET
 	@Path("/get/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public User getByID(@PathParam(value = "id") Long id) {
-		return repository.getByID(id);
+	public Boisson getByID(@PathParam(value = "id") Long id) {
+		return repository.find(id);
 	}
 
 	@GET
 	@Path("/get/{nom}")
 	@Produces(MediaType.APPLICATION_JSON)
-	public User getByName(@PathParam(value = "nom") String name) {
+	public Boisson getByName(@PathParam(value = "nom") String name) {
 		return repository.getByName(name);
 	}
 
@@ -62,8 +63,8 @@ public class RestService {
 	@Path("/update")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public User update(User u) {
-		return repository.update(u);
+	public Boisson update(Boisson p) {
+		return repository.update(p);
 	}
 
 }

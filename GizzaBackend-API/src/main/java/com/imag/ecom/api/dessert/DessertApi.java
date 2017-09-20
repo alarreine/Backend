@@ -15,41 +15,41 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.imag.ecom.produit.dessert.Dessert;
-import com.imag.ecom.produit.dessert.Repository;
+import com.imag.ecom.produit.dessert.DessertRepository;
 
 @Path("/dessert")
 @RequestScoped
-public class RestService {
+public class DessertApi {
 
 	@Inject
-	private Repository repository;
+	private DessertRepository repository;
 
 	@POST
 	@Path("/add")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Dessert add(Dessert d) {
-		return repository.add(d);
+		return repository.create(d);
 	}
 
 	@DELETE
 	@Path("/delete/{id}")
 	public void delete(@PathParam(value = "id") Long id) {
-		repository.delete(id);
+		repository.remove(repository.find(id));
 	}
 
 	@GET
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Dessert> getAll() {
-		return repository.getAll();
+		return repository.findAll();
 	}
 
 	@GET
 	@Path("/get/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Dessert getByID(@PathParam(value = "id") Long id) {
-		return repository.getByID(id);
+		return repository.find(id);
 	}
 
 	@GET

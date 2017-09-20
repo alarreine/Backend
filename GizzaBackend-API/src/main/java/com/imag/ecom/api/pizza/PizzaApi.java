@@ -17,24 +17,27 @@ import javax.ws.rs.core.MediaType;
 
 import com.imag.ecom.categorie.Categorie;
 import com.imag.ecom.produit.pizza.Pizza;
-import com.imag.ecom.produit.pizza.Repository;
+import com.imag.ecom.produit.pizza.PizzaRepository;
+import com.imag.ecom.security.Secured;
+import com.imag.ecom.shared.Role;
 
 @Path("/pizza")
 @RequestScoped
-public class RestService {
+public class PizzaApi {
 
 	@Inject
-	private Repository repository;
+	private PizzaRepository repository;
 	@Inject
-	com.imag.ecom.categorie.Repository categorieRepository;
+	com.imag.ecom.categorie.CategorieRepository categorieRepository;
 
 	@POST
+	@Secured({ Role.ADMIN })
 	@Path("/add")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Pizza add(@FormParam(value = "id_categorie") Long id_categorie, @FormParam(value = "nom") String nom,
 			@FormParam(value = "description") String description, @FormParam(value = "prix") double prix,
 			@FormParam(value = "url") String url) {
-		Categorie c = categorieRepository.getByID(id_categorie);
+		Categorie c = categorieRepository.find(id_categorie);
 		if (c == null) {
 			return null;
 		}
@@ -45,27 +48,28 @@ public class RestService {
 		p.setDescription(description);
 		p.setUrl(url);
 
-		return repository.add(p);
+		return repository.create(p);
 	}
 
 	@DELETE
 	@Path("/delete/{id}")
 	public void delete(@PathParam(value = "id") Long id) {
-		repository.delete(id);
+		repository.remove(repository.find(id));
 	}
 
 	@GET
+	@Secured({ Role.ADMIN, Role.USER })
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Pizza> getAll() {
-		return repository.getAll();
+		return repository.findAll();
 	}
 
 	@GET
 	@Path("/get/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Pizza getByID(@PathParam(value = "id") Long id) {
-		return repository.getByID(id);
+		return repository.find(id);
 	}
 
 	@GET

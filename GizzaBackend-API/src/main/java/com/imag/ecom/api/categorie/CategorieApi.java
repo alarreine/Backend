@@ -16,46 +16,48 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.imag.ecom.categorie.Categorie;
-import com.imag.ecom.categorie.CategoryType;
-import com.imag.ecom.categorie.Repository;
-import com.imag.ecom.produit.Produit;
-import com.imag.ecom.produit.pizza.Pizza;
+import com.imag.ecom.categorie.CategorieRepository;
+import com.imag.ecom.security.Secured;
+import com.imag.ecom.shared.CategoryType;
+import com.imag.ecom.shared.Role;
 
 @Path("/categorie")
 @RequestScoped
-public class RestService {
+public class CategorieApi {
 	@Inject
-	private Repository repository;
+	private CategorieRepository repository;
 
 	@POST
+	@Secured({ Role.ADMIN })
 	@Path("/add")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Categorie add(@FormParam(value = "type") String type, @FormParam(value = "libelle") String libelle) {
 		Categorie c = new Categorie();
 		c.setType(CategoryType.fromString(type));
 		c.setLibelle(libelle);
-		//c.addProduit(new Pizza());
-		return repository.add(c);
+		// c.addProduit(new Pizza());
+		return repository.create(c);
 	}
 
 	@DELETE
 	@Path("/delete/{id}")
 	public void delete(@PathParam(value = "id") Long id) {
-		repository.delete(id);
+		repository.remove(repository.find(id));
 	}
 
 	@GET
+	@Secured({ Role.ADMIN, Role.USER })
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Categorie> getAll() {
-		return repository.getAll();
+		return repository.findAll();
 	}
 
 	@GET
 	@Path("/get/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Categorie getByID(@PathParam(value = "id") Long id) {
-		return repository.getByID(id);
+		return repository.find(id);
 	}
 
 	@GET
