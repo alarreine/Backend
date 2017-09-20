@@ -22,7 +22,7 @@ public class Pizza extends Produit implements Serializable {
 		super();
 	}
 
-	public Pizza(String nom, double prix, String url, Categorie categorie, String description) {
+	public Pizza(Categorie categorie, String nom, String description, double prix, String url) {
 		super(nom, prix, url, categorie);
 		this.description = description;
 	}

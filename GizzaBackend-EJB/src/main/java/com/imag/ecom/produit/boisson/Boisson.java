@@ -14,7 +14,7 @@ import com.imag.ecom.produit.Produit;
 @DiscriminatorValue("BOISSON")
 public class Boisson extends Produit implements Serializable {
 
-	private int quantite;
+	private double quantite;
 	private static final long serialVersionUID = 1L;
 
 	public Boisson() {
@@ -22,13 +22,13 @@ public class Boisson extends Produit implements Serializable {
 	}
 
 	
-	public Boisson(String nom, double prix, String url, Categorie categorie,int quantite) {
+	public Boisson(String nom, double prix, String url, Categorie categorie,double quantite) {
 		super(nom, prix, url, categorie);
 		this.quantite=quantite;
 	}
 
 
-	public int getQuantite() {
+	public double getQuantite() {
 		return quantite;
 	}
 

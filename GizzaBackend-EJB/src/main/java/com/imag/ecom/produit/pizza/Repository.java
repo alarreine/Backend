@@ -4,11 +4,14 @@ import java.util.List;
 
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+
+import com.imag.ecom.categorie.Categorie;
 
 /**
  * Session Bean implementation class Repository
@@ -19,7 +22,6 @@ public class Repository implements RepositoryLocal {
 
 	@PersistenceContext
 	EntityManager em;
-	
 
 	/**
 	 * Default constructor.
@@ -30,6 +32,7 @@ public class Repository implements RepositoryLocal {
 
 	@Override
 	public Pizza add(Pizza p) {
+
 		em.persist(p);
 		return p;
 	}

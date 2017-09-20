@@ -16,7 +16,7 @@ import com.imag.ecom.produit.Produit;
 public class Dessert extends Produit implements Serializable {
 
 	private String nature;
-	private int quantite;
+	private double quantite;
 	private static final long serialVersionUID = 1L;
 
 	public Dessert() {
@@ -24,7 +24,7 @@ public class Dessert extends Produit implements Serializable {
 	}
 	
 
-	public Dessert(String nom, double prix, String url, Categorie categorie,String nature,int quantite) {
+	public Dessert(String nom, double prix, String url, Categorie categorie,String nature,double quantite) {
 		super(nom, prix, url, categorie);
 		this.nature=nature;
 		this.quantite=quantite;
@@ -40,7 +40,7 @@ public class Dessert extends Produit implements Serializable {
 		this.nature = nature;
 	}
 
-	public int getQuantite() {
+	public double getQuantite() {
 		return quantite;
 	}
 

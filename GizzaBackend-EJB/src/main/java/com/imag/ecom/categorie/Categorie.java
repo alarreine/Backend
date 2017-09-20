@@ -1,16 +1,16 @@
 package com.imag.ecom.categorie;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 
 import com.imag.ecom.produit.Produit;
@@ -20,29 +20,37 @@ import com.imag.ecom.produit.Produit;
  *
  */
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "type", discriminatorType = DiscriminatorType.STRING)
 public class Categorie implements Serializable {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-
-	@OneToMany(mappedBy = "categorie", fetch = FetchType.LAZY)
-	private Collection<Produit> produits;
 	private String libelle;
+	@Enumerated(EnumType.STRING)
+	private CategoryType type;
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "categorie", cascade = CascadeType.ALL)
+	private List<Produit> produits;
+
 	private static final long serialVersionUID = 1L;
 
 	public Categorie() {
 		super();
 	}
 
-	
-	public Categorie(String libelle) {
+	public Categorie(String libelle, CategoryType type) {
 		super();
 		this.libelle = libelle;
+		this.type = type;
 	}
 
+	public CategoryType getType() {
+		return type;
+	}
+
+	public void setType(CategoryType type) {
+		this.type = type;
+	}
 
 	public Long getId() {
 		return this.id;
@@ -52,11 +60,11 @@ public class Categorie implements Serializable {
 		this.id = id;
 	}
 
-	public Collection<Produit> getProduits() {
+	public List<Produit> getProduits() {
 		return produits;
 	}
 
-	public void setProduits(Collection<Produit> produits) {
+	public void setProduits(List<Produit> produits) {
 		this.produits = produits;
 	}
 
@@ -67,7 +75,9 @@ public class Categorie implements Serializable {
 	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
-	
-	
+
+	public void addProduit(Produit p) {
+		this.produits.add(p);
+	}
 
 }
