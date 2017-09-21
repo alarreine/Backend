@@ -15,13 +15,14 @@ import javax.persistence.*;
 public class ProduitCommande implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "prod_com_seq", sequenceName = "prod_com_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "prod_com_seq")
 	private Long id;
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_produit")
+	@JoinColumn(name = "id_produit", foreignKey = @ForeignKey(name = "FK_PC_PRODUIT"))
 	private Produit produit;
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_commande")
+	@JoinColumn(name = "id_commande", foreignKey = @ForeignKey(name = "FK_PC_COMMANDE"))
 	private Commande commande;
 	private int quantite;
 	private static final long serialVersionUID = 1L;

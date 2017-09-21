@@ -25,7 +25,7 @@ public class User implements Serializable {
 	private String telephone;
 	private String adresse;
 	@ManyToOne
-	@JoinColumn(name="role")
+	@JoinColumn(name="role", foreignKey = @ForeignKey(name = "FK_USER_ROLE"))
 	private Role role;
 	private static final long serialVersionUID = 1L;
 

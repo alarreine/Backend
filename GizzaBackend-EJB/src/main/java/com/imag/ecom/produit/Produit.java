@@ -4,17 +4,7 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import com.imag.ecom.categorie.Categorie;
 
@@ -29,14 +19,15 @@ import com.imag.ecom.categorie.Categorie;
 public abstract class Produit implements Serializable {
 
 	@Id
-	@GeneratedValue
+	@SequenceGenerator(name = "prod_seq", sequenceName = "prod_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "prod_seq")
 	private Long id;
 	private String nom;
 	private double prix;
 	private String url;
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_categorie")
+	@JoinColumn(name = "id_categorie", foreignKey = @ForeignKey(name = "FK_PROD_CAT"))
 	private Categorie categorie;
 	@OneToMany(fetch = FetchType.EAGER,mappedBy = "produit")
 	private Set<ProduitCommande> produitsCommandes = new HashSet<ProduitCommande>();

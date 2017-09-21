@@ -3,15 +3,7 @@ package com.imag.ecom.categorie;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 
 import com.imag.ecom.produit.Produit;
 
@@ -23,7 +15,8 @@ import com.imag.ecom.produit.Produit;
 public class Categorie implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "categorie_seq", sequenceName = "categorie_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "categorie_seq")
 	private Long id;
 	private String libelle;
 	@Enumerated(EnumType.STRING)
