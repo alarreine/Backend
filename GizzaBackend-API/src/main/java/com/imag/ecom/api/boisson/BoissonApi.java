@@ -34,14 +34,14 @@ public class BoissonApi {
 	}
 
 	@GET
-	@Path("/get/{id}")
+	@Path("/get/by/id/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Boisson getByID(@PathParam(value = "id") Long id) {
 		return repository.find(id);
 	}
 
 	@GET
-	@Path("/get/{nom}")
+	@Path("/get/by/name/{nom}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Boisson getByName(@PathParam(value = "nom") String name) {
 		return repository.getByName(name);

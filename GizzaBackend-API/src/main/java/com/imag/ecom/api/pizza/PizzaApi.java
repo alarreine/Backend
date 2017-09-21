@@ -38,14 +38,14 @@ public class PizzaApi {
 	}
 
 	@GET
-	@Path("/get/{id}")
+	@Path("/get/by/id/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Pizza getByID(@PathParam(value = "id") Long id) {
 		return repository.find(id);
 	}
 
 	@GET
-	@Path("/get/{nom}")
+	@Path("/get/by/name/{nom}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Pizza getByName(@PathParam(value = "nom") String name) {
 		return repository.getByName(name);

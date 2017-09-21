@@ -63,7 +63,7 @@ public class UserApi {
 	}
 
 	@GET
-	@Path("/get/{id}")
+	@Path("/get/by/id/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public User getByID(@PathParam(value = "id") Long id) {
 		return repository.find(id);
