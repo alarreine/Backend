@@ -1,5 +1,4 @@
 /**
- * Ardiansyah | http://ard.web.id
  *
  */
 
