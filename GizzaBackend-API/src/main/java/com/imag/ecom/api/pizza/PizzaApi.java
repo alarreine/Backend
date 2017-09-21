@@ -31,7 +31,7 @@ public class PizzaApi {
 	com.imag.ecom.categorie.CategorieRepository categorieRepository;
 
 	@GET
-	@Path("/all")
+	@Path("/get/all")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Pizza> getAll() {
 		return repository.findAll();

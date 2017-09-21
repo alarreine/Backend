@@ -56,7 +56,7 @@ public class UserApi {
 	}
 
 	@GET
-	@Path("/all")
+	@Path("/get/all")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<User> getAll() {
 		return repository.findAll();

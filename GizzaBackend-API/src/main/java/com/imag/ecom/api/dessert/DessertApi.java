@@ -27,7 +27,7 @@ public class DessertApi {
 	private DessertRepository repository;
 
 	@GET
-	@Path("/all")
+	@Path("/get/all")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Dessert> getAll() {
 		return repository.findAll();

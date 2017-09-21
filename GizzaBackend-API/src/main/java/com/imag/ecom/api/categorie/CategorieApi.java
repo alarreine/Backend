@@ -28,7 +28,7 @@ public class CategorieApi {
 	private CategorieRepository repository;
 
 	@GET
-	@Path("/all")
+	@Path("/get/all")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Categorie> getAll() {
 		return repository.findAll();

@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import com.imag.ecom.produit.Produit;
 import com.imag.ecom.shared.CategoryType;
@@ -21,6 +22,7 @@ import com.imag.ecom.shared.CategoryType;
  *
  */
 @Entity
+@XmlRootElement
 public class Categorie implements Serializable {
 
 	@Id

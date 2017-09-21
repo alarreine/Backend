@@ -27,7 +27,7 @@ public class BoissonApi {
 	private BoissonRepository repository;
 
 	@GET
-	@Path("/all")
+	@Path("/get/all")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Boisson> getAll() {
 		return repository.findAll();
