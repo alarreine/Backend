@@ -16,6 +16,8 @@ import javax.ws.rs.core.MediaType;
 
 import com.imag.ecom.produit.boisson.Boisson;
 import com.imag.ecom.produit.boisson.BoissonRepository;
+import com.imag.ecom.security.Secured;
+import com.imag.ecom.shared.Role;
 
 @Path("/boisson")
 @RequestScoped
@@ -23,20 +25,6 @@ public class BoissonApi {
 
 	@Inject
 	private BoissonRepository repository;
-
-	@POST
-	@Path("/add")
-	@Consumes(MediaType.APPLICATION_JSON)
-	@Produces(MediaType.APPLICATION_JSON)
-	public Boisson add(Boisson b) {
-		return repository.create(b);
-	}
-
-	@DELETE
-	@Path("/delete/{id}")
-	public void delete(@PathParam(value = "id") Long id) {
-		repository.remove(repository.find(id));
-	}
 
 	@GET
 	@Path("/all")
@@ -57,9 +45,27 @@ public class BoissonApi {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Boisson getByName(@PathParam(value = "nom") String name) {
 		return repository.getByName(name);
+	} 
+	
+	@POST
+	@Secured({ Role.ADMIN })
+	@Path("/add")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Boisson add(Boisson b) {
+		return repository.create(b);
 	}
 
+	@DELETE
+	@Secured({ Role.ADMIN })
+	@Path("/delete/{id}")
+	public void delete(@PathParam(value = "id") Long id) {
+		repository.remove(repository.find(id));
+	}
+
+
 	@PUT
+	@Secured({ Role.ADMIN })
 	@Path("/update")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)

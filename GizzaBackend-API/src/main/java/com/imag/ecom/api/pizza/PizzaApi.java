@@ -30,33 +30,6 @@ public class PizzaApi {
 	@Inject
 	com.imag.ecom.categorie.CategorieRepository categorieRepository;
 
-	@POST
-	@Secured({ Role.ADMIN })
-	@Path("/add")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Pizza add(@FormParam(value = "id_categorie") Long id_categorie, @FormParam(value = "nom") String nom,
-			@FormParam(value = "description") String description, @FormParam(value = "prix") double prix,
-			@FormParam(value = "url") String url) {
-		Categorie c = categorieRepository.find(id_categorie);
-		if (c == null) {
-			return null;
-		}
-		Pizza p = new Pizza();
-		p.setCategorie(c);
-		p.setNom(nom);
-		p.setPrix(prix);
-		p.setDescription(description);
-		p.setUrl(url);
-
-		return repository.create(p);
-	}
-
-	@DELETE
-	@Path("/delete/{id}")
-	public void delete(@PathParam(value = "id") Long id) {
-		repository.remove(repository.find(id));
-	}
-
 	@GET
 	@Secured({ Role.ADMIN, Role.USER })
 	@Path("/all")
@@ -79,7 +52,36 @@ public class PizzaApi {
 		return repository.getByName(name);
 	}
 
+	@POST
+	@Secured({ Role.ADMIN })
+	@Path("/add")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Pizza add(@FormParam(value = "id_categorie") Long id_categorie, @FormParam(value = "nom") String nom,
+			@FormParam(value = "description") String description, @FormParam(value = "prix") double prix,
+			@FormParam(value = "url") String url) {
+		Categorie c = categorieRepository.find(id_categorie);
+		if (c == null) {
+			return null;
+		}
+		Pizza p = new Pizza();
+		p.setCategorie(c);
+		p.setNom(nom);
+		p.setPrix(prix);
+		p.setDescription(description);
+		p.setUrl(url);
+
+		return repository.create(p);
+	}
+
+	@DELETE
+	@Secured({ Role.ADMIN })
+	@Path("/delete/{id}")
+	public void delete(@PathParam(value = "id") Long id) {
+		repository.remove(repository.find(id));
+	}
+
 	@PUT
+	@Secured({ Role.ADMIN })
 	@Path("/update")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)

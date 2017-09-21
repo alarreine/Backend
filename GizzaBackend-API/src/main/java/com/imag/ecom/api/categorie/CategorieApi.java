@@ -27,26 +27,7 @@ public class CategorieApi {
 	@Inject
 	private CategorieRepository repository;
 
-	@POST
-	@Secured({ Role.ADMIN })
-	@Path("/add")
-	@Produces(MediaType.APPLICATION_JSON)
-	public Categorie add(@FormParam(value = "type") String type, @FormParam(value = "libelle") String libelle) {
-		Categorie c = new Categorie();
-		c.setType(CategoryType.fromString(type));
-		c.setLibelle(libelle);
-		// c.addProduit(new Pizza());
-		return repository.create(c);
-	}
-
-	@DELETE
-	@Path("/delete/{id}")
-	public void delete(@PathParam(value = "id") Long id) {
-		repository.remove(repository.find(id));
-	}
-
 	@GET
-	@Secured({ Role.ADMIN, Role.USER })
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Categorie> getAll() {
@@ -67,7 +48,27 @@ public class CategorieApi {
 		return repository.getByName(name);
 	}
 
+	@POST
+	@Secured({ Role.ADMIN })
+	@Path("/add")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Categorie add(@FormParam(value = "type") String type, @FormParam(value = "libelle") String libelle) {
+		Categorie c = new Categorie();
+		c.setType(CategoryType.fromString(type));
+		c.setLibelle(libelle);
+		// c.addProduit(new Pizza());
+		return repository.create(c);
+	}
+
+	@DELETE
+	@Secured({ Role.ADMIN })
+	@Path("/delete/{id}")
+	public void delete(@PathParam(value = "id") Long id) {
+		repository.remove(repository.find(id));
+	}
+
 	@PUT
+	@Secured({ Role.ADMIN })
 	@Path("/update")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)

@@ -19,7 +19,10 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.imag.ecom.user.UserRepository;
+import com.google.gson.Gson;
+import com.imag.ecom.security.Secured;
 import com.imag.ecom.security.TokenServices;
+import com.imag.ecom.shared.Role;
 import com.imag.ecom.user.User;
 
 @Path("/user")
@@ -32,11 +35,22 @@ public class UserApi {
 	@Path("/add")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public User add(User u) {
+	public User add(@FormParam(value = "email") String email, @FormParam(value = "password") String password,
+			@FormParam(value = "nom") String nom, @FormParam("prenom") String prenom,
+			@FormParam(value = "adresse") String adresse, @FormParam(value = "telephone") String telephone) {
+		User u = new User();
+		u.setPassword(password);
+		u.setAdresse(adresse);
+		u.setEmail(email);
+		u.setNom(nom);
+		u.setPrenom(prenom);
+		u.setTelephone(telephone);
+		u.setRole(Role.USER);
 		return repository.create(u);
 	}
 
 	@DELETE
+	@Secured({ Role.ADMIN })
 	@Path("/delete/{id}")
 	public void delete(@PathParam(value = "id") Long id) {
 		repository.remove(repository.find(id));
@@ -70,8 +84,10 @@ public class UserApi {
 	@Consumes("application/x-www-form-urlencoded")
 	public Response authenticateUser(@FormParam("username") String username, @FormParam("password") String password) {
 		String role = repository.login(username, password);
+		User u = repository.logedUser(username, password);
+		String user = new Gson().toJson(u);
 
-		if (role != null) {
+		if (role != null && user != null) {
 			return Response.ok(Json.createObjectBuilder().add("token", createToken(username, role)).build(),
 					MediaType.APPLICATION_JSON).build();
 		} else {
@@ -83,6 +99,22 @@ public class UserApi {
 		Calendar cal = Calendar.getInstance();
 		cal.add(Calendar.HOUR_OF_DAY, 3);
 		return TokenServices.createToken(username, role, cal.getTimeInMillis());
+	}
+
+	@POST
+	@Secured({ Role.ADMIN })
+	@Path("admin/add")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public User addAdmin(@FormParam(value = "email") String email, @FormParam(value = "password") String password,
+			@FormParam(value = "nom") String nom, @FormParam("prenom") String prenom) {
+		User u = new User();
+		u.setPassword(password);
+		u.setEmail(email);
+		u.setNom(nom);
+		u.setPrenom(prenom);
+		u.setRole(Role.ADMIN);
+		return repository.create(u);
 	}
 
 }

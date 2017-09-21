@@ -51,6 +51,19 @@ public class UserRepository extends Repository<User> {
 		}
 	}
 
+	public User logedUser(String username, String password) {
+		TypedQuery<User> loginQuery = super.getEntityManager().createNamedQuery("User.get", User.class);
+		loginQuery.setParameter("username", username);
+		loginQuery.setParameter("password", hashPassword(password.toCharArray()));
+		User u;
+		try {
+			u = loginQuery.getSingleResult();
+			return u;
+		} catch (Exception e) {
+			return null;
+		}
+	}
+
 	public boolean registerNewUser() {
 		boolean success = false;
 		if (!success) {

@@ -22,7 +22,8 @@ import com.imag.ecom.shared.Role;
 @Entity
 @Table(name="Utilisateur")
 @NamedQueries({
-	@NamedQuery(name = "User.role", query = "SELECT u.role FROM User u WHERE u.email = :username AND u.password = :password")
+	@NamedQuery(name = "User.role", query = "SELECT u.role FROM User u WHERE u.email = :username AND u.password = :password"),
+	@NamedQuery(name = "User.get", query = "SELECT u FROM User u WHERE u.email = :username AND u.password = :password")
 })
 public class User implements Serializable {
 
