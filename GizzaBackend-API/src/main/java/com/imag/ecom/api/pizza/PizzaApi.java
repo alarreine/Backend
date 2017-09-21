@@ -31,7 +31,6 @@ public class PizzaApi {
 	com.imag.ecom.categorie.CategorieRepository categorieRepository;
 
 	@GET
-	@Secured({ Role.ADMIN, Role.USER })
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Pizza> getAll() {

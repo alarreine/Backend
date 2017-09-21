@@ -19,7 +19,6 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.imag.ecom.user.UserRepository;
-import com.google.gson.Gson;
 import com.imag.ecom.security.Secured;
 import com.imag.ecom.security.TokenServices;
 import com.imag.ecom.shared.Role;
@@ -84,10 +83,10 @@ public class UserApi {
 	@Consumes("application/x-www-form-urlencoded")
 	public Response authenticateUser(@FormParam("username") String username, @FormParam("password") String password) {
 		String role = repository.login(username, password);
-		User u = repository.logedUser(username, password);
-		String user = new Gson().toJson(u);
+//		User u = repository.logedUser(username, password);
+//		String user = new Gson().toJson(u);
 
-		if (role != null && user != null) {
+		if (role != null) {
 			return Response.ok(Json.createObjectBuilder().add("token", createToken(username, role)).build(),
 					MediaType.APPLICATION_JSON).build();
 		} else {
