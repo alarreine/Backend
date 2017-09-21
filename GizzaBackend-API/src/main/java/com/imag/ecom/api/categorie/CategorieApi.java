@@ -1,6 +1,8 @@
 package com.imag.ecom.api.categorie;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -14,6 +16,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import com.imag.ecom.categorie.Categorie;
 import com.imag.ecom.categorie.CategorieRepository;
@@ -30,8 +33,10 @@ public class CategorieApi {
 	@GET
 	@Path("/get/all")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Categorie> getAll() {
-		return repository.findAll();
+	public Response getAll() {
+		Map<String, List<Categorie>> res = new HashMap<>();
+		res.put("data", repository.findAll());
+		return Response.ok(res, MediaType.APPLICATION_JSON_TYPE).build();
 	}
 
 	@GET

@@ -1,6 +1,8 @@
 package com.imag.ecom.api.boisson;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -13,6 +15,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import com.imag.ecom.produit.boisson.Boisson;
 import com.imag.ecom.produit.boisson.BoissonRepository;
@@ -29,8 +32,10 @@ public class BoissonApi {
 	@GET
 	@Path("/get/all")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<Boisson> getAll() {
-		return repository.findAll();
+	public Response getAll() {
+		Map<String, List<Boisson>> res = new HashMap<>();
+		res.put("data", repository.findAll());
+		return Response.ok(res, MediaType.APPLICATION_JSON_TYPE).build();
 	}
 
 	@GET
@@ -45,8 +50,8 @@ public class BoissonApi {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Boisson getByName(@PathParam(value = "nom") String name) {
 		return repository.getByName(name);
-	} 
-	
+	}
+
 	@POST
 	@Secured({ Role.ADMIN })
 	@Path("/add")
@@ -62,7 +67,6 @@ public class BoissonApi {
 	public void delete(@PathParam(value = "id") Long id) {
 		repository.remove(repository.find(id));
 	}
-
 
 	@PUT
 	@Secured({ Role.ADMIN })

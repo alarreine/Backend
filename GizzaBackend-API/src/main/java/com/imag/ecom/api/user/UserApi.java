@@ -1,7 +1,9 @@
 package com.imag.ecom.api.user;
 
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -58,8 +60,10 @@ public class UserApi {
 	@GET
 	@Path("/get/all")
 	@Produces(MediaType.APPLICATION_JSON)
-	public List<User> getAll() {
-		return repository.findAll();
+	public Response getAll() {
+		Map<String, List<User>> res = new HashMap<>();
+		res.put("data", repository.findAll());
+		return Response.ok(res, MediaType.APPLICATION_JSON_TYPE).build();
 	}
 
 	@GET
@@ -83,8 +87,8 @@ public class UserApi {
 	@Consumes("application/x-www-form-urlencoded")
 	public Response authenticateUser(@FormParam("username") String username, @FormParam("password") String password) {
 		String role = repository.login(username, password);
-//		User u = repository.logedUser(username, password);
-//		String user = new Gson().toJson(u);
+		// User u = repository.logedUser(username, password);
+		// String user = new Gson().toJson(u);
 
 		if (role != null) {
 			return Response.ok(Json.createObjectBuilder().add("token", createToken(username, role)).build(),
