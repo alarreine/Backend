@@ -12,6 +12,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.HeaderParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -21,6 +22,7 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.imag.ecom.user.UserRepository;
+import com.imag.ecom.commande.Commande;
 import com.imag.ecom.security.Secured;
 import com.imag.ecom.security.TokenServices;
 import com.imag.ecom.shared.Role;
@@ -34,7 +36,6 @@ public class UserApi {
 
 	@POST
 	@Path("/add")
-	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public User add(@FormParam(value = "email") String email, @FormParam(value = "password") String password,
 			@FormParam(value = "nom") String nom, @FormParam("prenom") String prenom,
@@ -58,11 +59,24 @@ public class UserApi {
 	}
 
 	@GET
+	@Secured({ Role.ADMIN })
 	@Path("/get/all")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAll() {
 		Map<String, List<User>> res = new HashMap<>();
 		res.put("data", repository.findAll());
+		return Response.ok(res, MediaType.APPLICATION_JSON_TYPE).build();
+	}
+
+	@GET
+	@Secured({ Role.ADMIN, Role.USER })
+	@Path("/get/commandes")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getAllCommandes(@HeaderParam("Authorization") String token) {
+		String username = TokenServices.getUsername(token);
+		User u = repository.getById(username);
+		Map<String, List<Commande>> res = new HashMap<>();
+		res.put("data", u.getCommandes());
 		return Response.ok(res, MediaType.APPLICATION_JSON_TYPE).build();
 	}
 

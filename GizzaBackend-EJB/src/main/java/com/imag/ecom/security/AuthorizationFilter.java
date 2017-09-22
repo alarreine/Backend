@@ -1,7 +1,4 @@
-/**
- * Ardiansyah | http://ard.web.id
- *
- */
+
 
 package com.imag.ecom.security;
 
@@ -29,10 +26,7 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 
-/**
- *
- * @author Ardiansyah <ard333.ardiansyah@gmail.com>
- */
+
 @Secured
 @Provider
 @Priority(Priorities.AUTHORIZATION)
