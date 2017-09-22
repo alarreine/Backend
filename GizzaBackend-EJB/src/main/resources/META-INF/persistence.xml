@@ -25,12 +25,12 @@
          data source, this example data source is just for development and testing! -->
       <!-- The datasource is deployed as <EAR>/META-INF/GizzaBackend-ds.xml, you
          can find it in the source at ear/src/main/application/META-INF/GizzaBackend-ds.xml -->
-      <jta-data-source>java:/dsGizza</jta-data-source>
+      <jta-data-source>java:/PostgresDS</jta-data-source>
       <properties>
          <!-- Properties for Hibernate -->
          <property name="hibernate.hbm2ddl.auto" value="update" />
          <property name="hibernate.show_sql" value="true" />
-        <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+        <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
          <!-- <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />-->
       </properties>
    </persistence-unit>
