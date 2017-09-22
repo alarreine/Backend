@@ -65,7 +65,7 @@ public class CommandeApi {
 				produitRp.update(produit);
 
 			}
-			commande.setUser(userRp.find(c.getUserId()));
+			commande.setUser(userRp.find("user@imag.fr"));
 		}
 
 		return repository.update(commande);
