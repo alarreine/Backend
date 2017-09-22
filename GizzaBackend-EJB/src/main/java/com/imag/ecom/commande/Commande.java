@@ -59,6 +59,14 @@ public class Commande implements Serializable {
 		this.date = date;
 	}
 
+	public String getUserId() {
+		return user.getEmail();
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	public Set<ProduitCommande> getProduitsCommandes() {
 		return produitsCommandes;
 	}
@@ -69,14 +77,6 @@ public class Commande implements Serializable {
 
 	public void addProduitCommande(ProduitCommande produitCommande) {
 		this.produitsCommandes.add(produitCommande);
-	}
-
-	public String getUserId() {
-		return user.getEmail();
-	}
-
-	public void setUser(User user) {
-		this.user = user;
 	}
 
 	public void setProduitsCommandes(Set<ProduitCommande> produitsCommandes) {
