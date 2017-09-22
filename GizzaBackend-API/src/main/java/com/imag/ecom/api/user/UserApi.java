@@ -38,7 +38,7 @@ public class UserApi {
 	@Path("/add")
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
-	public User add(@FormParam(value = "email") String email, @FormParam(value = "password") String password,
+	public Response add(@FormParam(value = "email") String email, @FormParam(value = "password") String password,
 			@FormParam(value = "nom") String nom, @FormParam("prenom") String prenom,
 			@FormParam(value = "adresse") String adresse, @FormParam(value = "telephone") String telephone) {
 		User u = new User();
@@ -49,7 +49,9 @@ public class UserApi {
 		u.setPrenom(prenom);
 		u.setTelephone(telephone);
 		u.setRole(Role.USER);
-		return repository.create(u);
+		String role = repository.login(email, password);
+		return Response.ok(Json.createObjectBuilder().add("token", createToken(u.getEmail(), role)).build(),
+				MediaType.APPLICATION_JSON).build();
 	}
 
 	@DELETE
