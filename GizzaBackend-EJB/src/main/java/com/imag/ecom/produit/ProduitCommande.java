@@ -54,4 +54,8 @@ public class ProduitCommande implements Serializable {
 		this.quantite = quantite;
 	}
 
+	public Long getIdProduit() {
+		return produit.getId();
+	}
+
 }

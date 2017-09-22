@@ -9,6 +9,9 @@ import javax.crypto.spec.PBEKeySpec;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import com.imag.ecom.shared.Repository;
 import com.imag.ecom.shared.Role;
@@ -25,6 +28,15 @@ public class UserRepository extends Repository<User> {
 	 */
 	public UserRepository() {
 		super(User.class);
+	}
+
+	public User getById(String email) {
+		CriteriaBuilder cb = super.getEntityManager().getCriteriaBuilder();
+		CriteriaQuery<User> criteria = cb.createQuery(User.class);
+		Root<User> user = criteria.from(User.class);
+		criteria.select(user).where(cb.equal(user.get("email"), email));
+		return super.getEntityManager().createQuery(criteria).getSingleResult();
+
 	}
 
 	public String login(String username, String password) {
