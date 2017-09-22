@@ -65,7 +65,7 @@ public class CommandeApi {
 				produit.addProduitCommande(pc);
 				// **********************************
 
-				// ***********************************
+				// ************************************
 				produitCommandeRp.update(pc);
 				produitRp.update(produit);
 
