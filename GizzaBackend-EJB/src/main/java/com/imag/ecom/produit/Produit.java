@@ -92,6 +92,10 @@ public abstract class Produit implements Serializable {
 		}
 		return this.categorie.getId();
 	}
+	
+	public String getType() {
+		return this.categorie.getType().toString();
+	}
 
 	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;

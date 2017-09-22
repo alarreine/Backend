@@ -2,6 +2,7 @@ package com.imag.ecom.produit;
 
 import com.imag.ecom.commande.Commande;
 import com.imag.ecom.produit.Produit;
+
 import java.io.Serializable;
 import java.lang.Long;
 import javax.persistence.*;
@@ -64,6 +65,11 @@ public class ProduitCommande implements Serializable {
 
 	public double getPrix() {
 		return produit.getPrix();
+	}
+
+	public String getCategorie() {
+
+		return produit.getType();
 	}
 
 }
