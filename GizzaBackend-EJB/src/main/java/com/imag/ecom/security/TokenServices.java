@@ -18,12 +18,11 @@ import javax.xml.bind.DatatypeConverter;
 
 public class TokenServices {
 
-	private static final Key signingKey = new SecretKeySpec(DatatypeConverter.parseBase64Binary("ExampleKey"),
+	private static final Key signingKey = new SecretKeySpec(DatatypeConverter.parseBase64Binary("GizzaSecurity"),
 			SignatureAlgorithm.HS512.getJcaName());
 
 	public static String createToken(String username, String role, long expired) {
-		return Jwts.builder().setSubject(username).claim("role", role)
-
+		return Jwts.builder().setSubject(username).claim("role", role).claim("username", username)
 				.signWith(SignatureAlgorithm.HS512, signingKey).setExpiration(new Date(expired)).compact();
 	}
 
@@ -35,6 +34,17 @@ public class TokenServices {
 		Jwts.parser().requireSubject(claims.getSubject()).setSigningKey(signingKey).parseClaimsJws(token);
 
 		return role;
+	}
+
+	public static String getUsername(String tok) throws ExpiredJwtException, UnsupportedJwtException,
+			MalformedJwtException, SignatureException, IllegalArgumentException {
+
+		String token = tok.substring("Bearer".length()).trim();
+		Claims claims = Jwts.parser().setSigningKey(signingKey).parseClaimsJws(token).getBody();
+		String username = null;
+		username = claims.get("username").toString();
+		Jwts.parser().requireSubject(claims.getSubject()).setSigningKey(signingKey).parseClaimsJws(token);
+		return username;
 	}
 
 }

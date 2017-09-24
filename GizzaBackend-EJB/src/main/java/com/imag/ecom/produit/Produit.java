@@ -78,9 +78,13 @@ public abstract class Produit implements Serializable {
 
 	public Long getCategorieId() {
 		if (this.categorie == null) {
-			return null;
+			return this.categorie.getId();
 		}
 		return this.categorie.getId();
+	}
+	
+	public String getType() {
+		return this.categorie.getType().toString();
 	}
 
 	public void setCategorie(Categorie categorie) {

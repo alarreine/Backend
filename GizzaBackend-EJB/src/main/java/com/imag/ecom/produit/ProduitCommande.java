@@ -1,10 +1,20 @@
 package com.imag.ecom.produit;
 
-import com.imag.ecom.commande.Commande;
-import com.imag.ecom.produit.Produit;
-
-import javax.persistence.*;
 import java.io.Serializable;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import com.imag.ecom.commande.Commande;
 
 /**
  * Entity implementation class for Entity: ProduitCommande
@@ -53,6 +63,23 @@ public class ProduitCommande implements Serializable {
 
 	public void setQuantite(int quantite) {
 		this.quantite = quantite;
+	}
+
+	public String getNom() {
+		return produit.getNom();
+	}
+
+	public String getUrl() {
+		return produit.getUrl();
+	}
+
+	public double getPrix() {
+		return produit.getPrix();
+	}
+
+	public String getCategorie() {
+
+		return produit.getType();
 	}
 
 }
