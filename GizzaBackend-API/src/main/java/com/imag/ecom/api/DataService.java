@@ -9,11 +9,17 @@ import javax.ws.rs.Path;
 import com.imag.ecom.categorie.Categorie;
 import com.imag.ecom.categorie.CategorieRepository;
 import com.imag.ecom.produit.boisson.Boisson;
+import com.imag.ecom.produit.boisson.BoissonRepository;
 import com.imag.ecom.produit.dessert.Dessert;
+import com.imag.ecom.produit.dessert.DessertRepository;
 import com.imag.ecom.produit.pizza.Pizza;
+import com.imag.ecom.produit.pizza.PizzaRepository;
 import com.imag.ecom.shared.CategoryType;
 import com.imag.ecom.shared.Log;
+import com.imag.ecom.shared.Role;
+import com.imag.ecom.user.User;
 import com.imag.ecom.user.UserRepository;
+
 
 @Path("/dataservice")
 @RequestScoped
@@ -22,11 +28,11 @@ public class DataService {
 	@Inject
 	private CategorieRepository categoryRp;
 	@Inject
-	private com.imag.ecom.produit.pizza.PizzaRepository pizzaRp;
+	private PizzaRepository pizzaRp;
 	@Inject
-	private com.imag.ecom.produit.boisson.BoissonRepository boissonRp;
+	private BoissonRepository boissonRp;
 	@Inject
-	private com.imag.ecom.produit.dessert.DessertRepository dessertRp;
+	private DessertRepository dessertRp;
 	@EJB
 	private UserRepository userRp;
 	@Inject
