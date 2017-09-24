@@ -1,30 +1,21 @@
 package com.imag.ecom.api.user;
 
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
-import javax.json.Json;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
-import com.imag.ecom.user.UserRepository;
 import com.imag.ecom.security.Secured;
 import com.imag.ecom.security.TokenServices;
 import com.imag.ecom.shared.Role;
 import com.imag.ecom.user.User;
+import com.imag.ecom.user.UserRepository;
+
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.json.Json;
+import javax.ws.rs.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Path("/user")
 @RequestScoped
@@ -34,7 +25,7 @@ public class UserApi {
 
 	@POST
 	@Path("/add")
-	@Consumes(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	@Produces(MediaType.APPLICATION_JSON)
 	public User add(@FormParam(value = "email") String email, @FormParam(value = "password") String password,
 			@FormParam(value = "nom") String nom, @FormParam("prenom") String prenom,

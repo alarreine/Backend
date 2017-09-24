@@ -1,18 +1,14 @@
 package com.imag.ecom.security;
 
+import com.imag.ecom.shared.Role;
+
+import javax.ws.rs.NameBinding;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import javax.ws.rs.NameBinding;
 
-import com.imag.ecom.shared.Role;
-
-/**
- *
- * @author Ardiansyah <ard333.ardiansyah@gmail.com>
- */
 @NameBinding
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE, ElementType.METHOD})
