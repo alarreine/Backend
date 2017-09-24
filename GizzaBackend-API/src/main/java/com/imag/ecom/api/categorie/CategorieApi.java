@@ -44,6 +44,15 @@ public class CategorieApi {
 		return repository.getByName(name);
 	}
 
+	@GET
+	@Path("/get/by/type/{type}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Response getByType(@PathParam(value = "type") String type) {
+		Map<String, List<Categorie>> res = new HashMap<>();
+		res.put("data", repository.getByType(CategoryType.fromString(type)));
+		return Response.ok(res, MediaType.APPLICATION_JSON_TYPE).build();
+	}
+
 	@POST
 	@Secured({ Role.ADMIN })
 	@Path("/add")
