@@ -63,6 +63,7 @@ public class UserApi {
 
 	@GET
 	@Path("/get/all")
+	@Secured({ Role.ADMIN })
 	@Produces(MediaType.APPLICATION_JSON)
 	public Response getAll() {
 		Map<String, List<User>> res = new HashMap<>();

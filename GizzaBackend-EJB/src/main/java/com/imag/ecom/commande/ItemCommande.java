@@ -31,4 +31,11 @@ public class ItemCommande {
 		this.quantite = quantite;
 	}
 
+	@Override
+	public String toString() {
+		return "ItemCommande [idProduit=" + idProduit + ", quantite=" + quantite + "]";
+	}
+	
+	
+
 }

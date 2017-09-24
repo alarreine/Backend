@@ -14,4 +14,9 @@ public class ItemsCommandes {
 		this.data = data;
 	}
 
+	@Override
+	public String toString() {
+		return "ItemsCommandes [data=" + data + "]";
+	}
+
 }

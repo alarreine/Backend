@@ -12,6 +12,7 @@ import com.imag.ecom.produit.boisson.Boisson;
 import com.imag.ecom.produit.dessert.Dessert;
 import com.imag.ecom.produit.pizza.Pizza;
 import com.imag.ecom.shared.CategoryType;
+import com.imag.ecom.shared.Log;
 import com.imag.ecom.user.UserRepository;
 
 @Path("/dataservice")
@@ -28,6 +29,8 @@ public class DataService {
 	private com.imag.ecom.produit.dessert.DessertRepository dessertRp;
 	@EJB
 	private UserRepository userRp;
+	@Inject
+	private Log logger;
 
 	@GET
 	@Path("/initialize")
@@ -144,6 +147,7 @@ public class DataService {
 			dessertRp.create(d26);
 			dessertRp.create(d17);
 			dessertRp.create(d27);
+			logger.logInfo("The database has been initialized");
 			return "Succès !!!";
 		}
 		return "Error !";

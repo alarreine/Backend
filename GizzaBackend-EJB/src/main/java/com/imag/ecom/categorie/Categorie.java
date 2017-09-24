@@ -75,4 +75,11 @@ public class Categorie implements Serializable {
 		this.produits.add(p);
 	}
 
+	@Override
+	public String toString() {
+		return "Categorie [id=" + id + ", libelle=" + libelle + ", type=" + type + ", produits=" + produits + "]";
+	}
+	
+	
+
 }

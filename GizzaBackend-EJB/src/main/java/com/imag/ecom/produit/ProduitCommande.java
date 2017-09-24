@@ -82,4 +82,10 @@ public class ProduitCommande implements Serializable {
 		return produit.getType();
 	}
 
+	@Override
+	public String toString() {
+		return "ProduitCommande [id=" + id + ", produit=" + produit + ", commande=" + commande + ", quantite="
+				+ quantite + "]";
+	}
+
 }

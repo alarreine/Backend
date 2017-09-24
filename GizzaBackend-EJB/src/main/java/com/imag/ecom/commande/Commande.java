@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,7 +39,7 @@ public class Commande implements Serializable {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "commande", fetch = FetchType.EAGER)
 	private Set<ProduitCommande> produitsCommandes = new HashSet<ProduitCommande>();
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_user")
+	@JoinColumn(name = "id_user", foreignKey= @ForeignKey(name="FK_COMMANDE_USER"))
 	private User user;
 	private static final long serialVersionUID = 1L;
 
@@ -84,6 +85,12 @@ public class Commande implements Serializable {
 
 	public void setProduitsCommandes(Set<ProduitCommande> produitsCommandes) {
 		this.produitsCommandes = produitsCommandes;
+	}
+
+	@Override
+	public String toString() {
+		return "Commande [id=" + id + ", date=" + date + ", produitsCommandes=" + produitsCommandes + ", user=" + user
+				+ "]";
 	}
 
 }
