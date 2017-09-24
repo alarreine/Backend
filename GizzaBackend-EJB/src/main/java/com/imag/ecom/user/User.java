@@ -1,11 +1,19 @@
 package com.imag.ecom.user;
 
 import java.io.Serializable;
-import java.lang.String;
-import javax.persistence.*;
+
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
+
 import org.hibernate.validator.constraints.Email;
 
-import com.imag.ecom.role.Role;
+import com.imag.ecom.shared.Role;
+
 
 /**
  * Entity implementation class for Entity: User
@@ -13,9 +21,22 @@ import com.imag.ecom.role.Role;
  */
 @Entity
 @Table(name="Utilisateur")
+@NamedQueries({
+	@NamedQuery(name = "User.role", query = "SELECT u.role FROM User u WHERE u.email = :username AND u.password = :password"),
+	@NamedQuery(name = "User.get", query = "SELECT u FROM User u WHERE u.email = :username AND u.password = :password")
+})
 public class User implements Serializable {
 
 	   
+	public Role getRole() {
+		return role;
+	}
+
+
+	public void setRole(Role role) {
+		this.role = role;
+	}
+
 	@Id
 	@Email
 	private String email;
@@ -24,8 +45,7 @@ public class User implements Serializable {
 	private String prenom;
 	private String telephone;
 	private String adresse;
-	@ManyToOne
-	@JoinColumn(name="role")
+	@Enumerated(EnumType.STRING)
 	private Role role;
 	private static final long serialVersionUID = 1L;
 

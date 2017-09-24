@@ -15,41 +15,41 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.imag.ecom.commande.Commande;
-import com.imag.ecom.commande.Repository;
+import com.imag.ecom.commande.CommandeRepository;
 
 @Path("/commande")
 @RequestScoped
-public class RestService {
+public class CommandeApi {
 
 	@Inject
-	private Repository repository;
+	private CommandeRepository repository;
 
 	@POST
 	@Path("/add")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Commande add(Commande c) {
 
-		return repository.add(c);
+		return repository.create(c);
 	}
 
 	@DELETE
 	@Path("/delete/{id}")
 	public void delete(@PathParam(value = "id") Long id) {
-		repository.delete(id);
+		repository.remove(repository.find(id));
 	}
 
 	@GET
 	@Path("/all")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Commande> getAll() {
-		return repository.getAll();
+		return repository.findAll();
 	}
 
 	@GET
 	@Path("/get/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Commande getByID(@PathParam(value = "id") Long id) {
-		return repository.getByID(id);
+		return repository.find(id);
 	}
 
 	@PUT

@@ -32,6 +32,12 @@
             <artifactId>cdi-api</artifactId>
             <scope>provided</scope>
         </dependency>
+         <dependency>
+			<groupId>javax</groupId>
+			<artifactId>javaee-api</artifactId>
+			<version>7.0</version>
+			<scope>provided</scope>
+		</dependency>
 
         <!-- Import the JPA API, we use provided scope as the API is included in JBoss WildFly -->
         <dependency>
@@ -48,6 +54,11 @@
             <artifactId>hibernate-validator</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt</artifactId>
+			<version>0.7.0</version>
+		</dependency>
 
 
         <!-- Test scope dependencies -->
