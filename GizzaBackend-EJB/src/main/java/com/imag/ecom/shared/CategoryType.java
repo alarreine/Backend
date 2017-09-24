@@ -1,4 +1,4 @@
-package com.imag.ecom.categorie;
+package com.imag.ecom.shared;
 
 public enum CategoryType {
 

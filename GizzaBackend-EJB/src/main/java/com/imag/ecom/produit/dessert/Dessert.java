@@ -28,7 +28,6 @@ public class Dessert extends Produit implements Serializable {
 		super(nom, prix, url, categorie);
 		this.nature=nature;
 		this.quantite=quantite;
-		// TODO Auto-generated constructor stub
 	}
 
 

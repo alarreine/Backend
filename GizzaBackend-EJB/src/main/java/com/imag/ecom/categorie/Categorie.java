@@ -1,29 +1,24 @@
 package com.imag.ecom.categorie;
 
+import com.imag.ecom.produit.Produit;
+import com.imag.ecom.shared.CategoryType;
+
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlRootElement;
 import java.io.Serializable;
 import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-
-import com.imag.ecom.produit.Produit;
 
 /**
  * Entity implementation class for Entity: Categorie
  *
  */
 @Entity
+@XmlRootElement
 public class Categorie implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "categorie_seq", sequenceName = "categorie_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "categorie_seq")
 	private Long id;
 	private String libelle;
 	@Enumerated(EnumType.STRING)
@@ -79,5 +74,12 @@ public class Categorie implements Serializable {
 	public void addProduit(Produit p) {
 		this.produits.add(p);
 	}
+
+	@Override
+	public String toString() {
+		return "Categorie [id=" + id + ", libelle=" + libelle + ", type=" + type + ", produits=" + produits + "]";
+	}
+	
+	
 
 }

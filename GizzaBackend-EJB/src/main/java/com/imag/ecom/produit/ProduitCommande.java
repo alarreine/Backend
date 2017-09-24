@@ -1,10 +1,20 @@
 package com.imag.ecom.produit;
 
-import com.imag.ecom.commande.Commande;
-import com.imag.ecom.produit.Produit;
 import java.io.Serializable;
-import java.lang.Long;
-import javax.persistence.*;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import com.imag.ecom.commande.Commande;
 
 /**
  * Entity implementation class for Entity: ProduitCommande
@@ -15,13 +25,14 @@ import javax.persistence.*;
 public class ProduitCommande implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@SequenceGenerator(name = "prod_com_seq", sequenceName = "prod_com_seq", allocationSize = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "prod_com_seq")
 	private Long id;
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_produit")
+	@JoinColumn(name = "id_produit", foreignKey = @ForeignKey(name = "FK_PC_PRODUIT"))
 	private Produit produit;
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_commande")
+	@JoinColumn(name = "id_commande", foreignKey = @ForeignKey(name = "FK_PC_COMMANDE"))
 	private Commande commande;
 	private int quantite;
 	private static final long serialVersionUID = 1L;
@@ -52,6 +63,29 @@ public class ProduitCommande implements Serializable {
 
 	public void setQuantite(int quantite) {
 		this.quantite = quantite;
+	}
+
+	public String getNom() {
+		return produit.getNom();
+	}
+
+	public String getUrl() {
+		return produit.getUrl();
+	}
+
+	public double getPrix() {
+		return produit.getPrix();
+	}
+
+	public String getCategorie() {
+
+		return produit.getType();
+	}
+
+	@Override
+	public String toString() {
+		return "ProduitCommande [id=" + id + ", produit=" + produit + ", commande=" + commande + ", quantite="
+				+ quantite + "]";
 	}
 
 }
