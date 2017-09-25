@@ -9,8 +9,6 @@ import java.util.List;
 
 import javax.annotation.Priority;
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
-import javax.ws.rs.NotAuthorizedException;
 import javax.ws.rs.Priorities;
 import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.container.ContainerRequestFilter;
@@ -36,9 +34,6 @@ public class AuthorizationFilter implements ContainerRequestFilter {
 	@Context
 	private ResourceInfo resourceInfo;
 
-	@Context
-	private HttpServletRequest request;
-
 	@Inject
 	private Log logger;
 
@@ -48,8 +43,9 @@ public class AuthorizationFilter implements ContainerRequestFilter {
 		String authorizationHeader = requestContext.getHeaderString(HttpHeaders.AUTHORIZATION);
 
 		if (authorizationHeader == null || !authorizationHeader.startsWith("Bearer ")) {
-			logger.logInfo("Access UNAUTHORIZED from " + request.getRemoteAddr());
+			logger.logInfo("Access UNAUTHORIZED from " + requestContext.getHeaderString("X-Real-IP")+" without sesion");
 			requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
+			return;
 		}
 		String token = authorizationHeader.substring("Bearer".length()).trim();
 
@@ -61,20 +57,20 @@ public class AuthorizationFilter implements ContainerRequestFilter {
 
 			if (methodRoles.size() > 0) {
 				if (!methodRoles.contains(userRole)) {
-					logger.logInfo("Access FORBIDDEN from " + request.getRemoteAddr());
+					logger.logInfo("Access FORBIDDEN from " + requestContext.getHeaderString("X-Real-IP"));
 					requestContext.abortWith(Response.status(Response.Status.FORBIDDEN).build());
 				}
 			}
 			if (classRoles.size() > 0) {
 				if (!classRoles.contains(userRole)) {
 					
-					logger.logInfo("Access FORBIDDEN from " + request.getRemoteAddr() +"USER:"+TokenServices.getUsername(token));
+					logger.logInfo("Access FORBIDDEN from " + requestContext.getHeaderString("X-Real-IP") +"USER:"+TokenServices.getUsername(token));
 					requestContext.abortWith(Response.status(Response.Status.FORBIDDEN).build());
 				}
 			}
 		} catch (ExpiredJwtException | UnsupportedJwtException | MalformedJwtException | SignatureException
 				| IllegalArgumentException e) {
-			logger.logInfo("Access UNAUTHORIZED from " + request.getRemoteAddr() +"USER:"+TokenServices.getUsername(token));
+			logger.logInfo("Access UNAUTHORIZED from " + requestContext.getHeaderString("X-Real-IP") +"USER:"+TokenServices.getUsername(token));
 			requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
 		}
 

@@ -78,7 +78,7 @@ public class PizzaApi {
 		p.setPrix(prix);
 		p.setDescription(description);
 		p.setUrl(url);
-
+		logger.logInfo("The pizza "+p.toString()+ "has been created");
 		return repository.create(p);
 	}
 
@@ -95,6 +95,7 @@ public class PizzaApi {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public Pizza update(Pizza p) {
+		logger.logInfo("The pizza "+p.toString()+ "has been updated");
 		return repository.update(p);
 	}
 

@@ -24,6 +24,7 @@ import javax.ws.rs.core.Response;
 import com.imag.ecom.commande.Commande;
 import com.imag.ecom.security.Secured;
 import com.imag.ecom.security.TokenServices;
+import com.imag.ecom.shared.Log;
 import com.imag.ecom.shared.Role;
 import com.imag.ecom.user.User;
 import com.imag.ecom.user.UserRepository;
@@ -33,6 +34,9 @@ import com.imag.ecom.user.UserRepository;
 public class UserApi {
 	@Inject
 	private UserRepository repository;
+	
+	@Inject
+	private Log logger;
 
 	@POST
 	@Path("/add")
@@ -50,6 +54,7 @@ public class UserApi {
 		u.setTelephone(telephone);
 		u.setRole(Role.USER);
 		String role = repository.login(email, password);
+		logger.logInfo("The user "+email+ "has been created");
 		return Response.ok(Json.createObjectBuilder().add("token", createToken(u.getEmail(), role)).build(),
 				MediaType.APPLICATION_JSON).build();
 	}
@@ -59,6 +64,7 @@ public class UserApi {
 	@Path("/delete/{id}")
 	public void delete(@PathParam(value = "id") Long id) {
 		repository.remove(repository.find(id));
+		logger.logInfo("The user "+id+ "has been removed");
 	}
 
 	@GET
@@ -95,6 +101,7 @@ public class UserApi {
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public User update(User u) {
+		logger.logInfo("The user "+u.getEmail()+ "has been updated");
 		return repository.update(u);
 	}
 
@@ -104,13 +111,14 @@ public class UserApi {
 	@Consumes("application/x-www-form-urlencoded")
 	public Response authenticateUser(@FormParam("username") String username, @FormParam("password") String password) {
 		String role = repository.login(username, password);
-		// User u = repository.logedUser(username, password);
-		// String user = new Gson().toJson(u);
+
 
 		if (role != null) {
+			logger.logInfo("Loggin of user: "+ username +" with role:"+role);
 			return Response.ok(Json.createObjectBuilder().add("token", createToken(username, role)).build(),
 					MediaType.APPLICATION_JSON).build();
 		} else {
+			logger.logInfo("Fail loggin of: "+username);
 			return Response.status(Response.Status.UNAUTHORIZED).build();
 		}
 	}
@@ -134,6 +142,7 @@ public class UserApi {
 		u.setNom(nom);
 		u.setPrenom(prenom);
 		u.setRole(Role.ADMIN);
+		logger.logInfo("The user "+email+ "has been created");
 		return repository.create(u);
 	}
 
