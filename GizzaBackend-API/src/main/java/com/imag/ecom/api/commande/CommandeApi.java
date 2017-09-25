@@ -30,6 +30,7 @@ import com.imag.ecom.produit.ProduitRepository;
 import com.imag.ecom.security.Secured;
 import com.imag.ecom.security.TokenServices;
 import com.imag.ecom.shared.Role;
+import com.imag.ecom.user.User;
 import com.imag.ecom.user.UserRepository;
 
 @Path("/commande")
@@ -50,31 +51,33 @@ public class CommandeApi {
 	@Path("/add")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Commande add(@HeaderParam("Authorization") String token, ItemsCommandes c) {
-		Commande commande = new Commande();
-		repository.create(commande);
-		if (c != null) {
-			commande.setDate(new Date());
-			for (ItemCommande ic : c.getData()) {
-				ProduitCommande pc = new ProduitCommande();
-				Produit produit = produitRp.find(ic.getIdProduit());
-				produitCommandeRp.create(pc);
-				pc.setCommande(commande);
-				pc.setProduit(produit);
-				pc.setQuantite(ic.getQuantite());
-				commande.addProduitCommande(pc);
-				produit.addProduitCommande(pc);
-				// **********************************
-
-				// ************************************
-				produitCommandeRp.update(pc);
-				produitRp.update(produit);
+		try {
+			Commande commande = new Commande();
+			repository.create(commande);
+			if (c != null) {
+				User u = userRp.find(TokenServices.getUsername(token));
+				commande.setUser(u);
+				commande.setDate(new Date());
+				for (ItemCommande ic : c.getData()) {
+					ProduitCommande pc = new ProduitCommande();
+					Produit produit = produitRp.find(ic.getIdProduit());
+					produitCommandeRp.create(pc);
+					pc.setCommande(commande);
+					pc.setProduit(produit);
+					pc.setQuantite(ic.getQuantite());
+					commande.addProduitCommande(pc);
+					produit.addProduitCommande(pc);
+					produitCommandeRp.update(pc);
+				}
 
 			}
-			commande.setUser(userRp.find(TokenServices.getUsername(token)));
+
+			return repository.find(commande.getId());
+
+		} catch (NullPointerException e) {
+			e.printStackTrace();
 		}
-
-		return repository.update(commande);
-
+		return null;
 	}
 
 	@DELETE

@@ -3,7 +3,6 @@ package com.imag.ecom.user;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -48,7 +47,7 @@ public class User implements Serializable {
 	private String adresse;
 	@Enumerated(EnumType.STRING)
 	private Role role;
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user", cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "user")
 	private List<Commande> commandes;
 	private static final long serialVersionUID = 1L;
 

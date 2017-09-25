@@ -9,6 +9,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -28,7 +29,7 @@ import com.imag.ecom.user.User;
 public class Commande implements Serializable {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	@Temporal(TemporalType.DATE)
 	private Date date;
@@ -59,9 +60,9 @@ public class Commande implements Serializable {
 		this.date = date;
 	}
 
-	public String getUserId() {
-		return user.getEmail();
-	}
+	// public String getUserId() {
+	// return user.getEmail();
+	// }
 
 	public void setUser(User user) {
 		this.user = user;

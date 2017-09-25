@@ -9,6 +9,7 @@ import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
@@ -29,7 +30,7 @@ import com.imag.ecom.categorie.Categorie;
 public abstract class Produit implements Serializable {
 
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String nom;
 	private double prix;
@@ -38,7 +39,7 @@ public abstract class Produit implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_categorie")
 	private Categorie categorie;
-	@OneToMany(fetch = FetchType.EAGER,mappedBy = "produit")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "produit")
 	private Set<ProduitCommande> produitsCommandes = new HashSet<ProduitCommande>();
 	private static final long serialVersionUID = 1L;
 
@@ -92,7 +93,7 @@ public abstract class Produit implements Serializable {
 		}
 		return this.categorie.getId();
 	}
-	
+
 	public String getType() {
 		return this.categorie.getType().toString();
 	}
