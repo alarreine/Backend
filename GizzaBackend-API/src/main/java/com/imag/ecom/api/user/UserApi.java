@@ -46,19 +46,20 @@ public class UserApi {
 			@FormParam(value = "nom") String nom, @FormParam("prenom") String prenom,
 			@FormParam(value = "adresse") String adresse, @FormParam(value = "telephone") String telephone) {
 		User u = new User();
-		u.setPassword(password);
+		u.setPassword(repository.hashPassword(password.toCharArray()));
 		u.setAdresse(adresse);
 		u.setEmail(email);
 		u.setNom(nom);
 		u.setPrenom(prenom);
 		u.setTelephone(telephone);
 		u.setRole(Role.USER);
-		String role = repository.login(email, password);
 		repository.create(u);
-		logger.logInfo("The user "+email+ "has been created");
-		return Response.ok(Json.createObjectBuilder().add("token", createToken(u.getEmail(), role)).build(),
-				MediaType.APPLICATION_JSON).build();
+		return Response
+				.ok(Json.createObjectBuilder().add("token", createToken(u.getEmail(), u.getRole().toString())).build(),
+						MediaType.APPLICATION_JSON)
+				.build();
 	}
+
 
 	@DELETE
 	@Secured({ Role.ADMIN })

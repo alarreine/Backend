@@ -127,11 +127,5 @@ public class User implements Serializable {
 		this.commandes.add(c);
 	}
 
-	@Override
-	public String toString() {
-		return "User [email=" + email + ", password=" + password + ", nom=" + nom + ", prenom=" + prenom
-				+ ", telephone=" + telephone + ", adresse=" + adresse + ", role=" + role + ", commandes=" + commandes
-				+ "]";
-	}
 
 }

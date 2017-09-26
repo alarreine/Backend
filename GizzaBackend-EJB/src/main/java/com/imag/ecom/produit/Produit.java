@@ -103,12 +103,5 @@ public abstract class Produit implements Serializable {
 		this.produitsCommandes.add(produitCommande);
 	}
 
-	@Override
-	public String toString() {
-		return "Produit [id=" + id + ", nom=" + nom + ", prix=" + prix + ", url=" + url + ", categorie=" + categorie
-				+ ", produitsCommandes=" + produitsCommandes + "]";
-	}
 	
-	
-
 }
