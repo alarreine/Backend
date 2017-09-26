@@ -54,6 +54,7 @@ public class UserApi {
 		u.setTelephone(telephone);
 		u.setRole(Role.USER);
 		String role = repository.login(email, password);
+		repository.create(u);
 		logger.logInfo("The user "+email+ "has been created");
 		return Response.ok(Json.createObjectBuilder().add("token", createToken(u.getEmail(), role)).build(),
 				MediaType.APPLICATION_JSON).build();
