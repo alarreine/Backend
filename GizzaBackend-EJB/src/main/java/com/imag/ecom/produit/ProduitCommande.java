@@ -28,10 +28,10 @@ public class ProduitCommande implements Serializable {
 	@SequenceGenerator(name = "prod_com_seq", sequenceName = "prod_com_seq", allocationSize = 1)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "prod_com_seq")
 	private Long id;
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST}, fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_produit", foreignKey = @ForeignKey(name = "FK_PC_PRODUIT"))
 	private Produit produit;
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(cascade = {CascadeType.MERGE,CascadeType.PERSIST}, fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_commande", foreignKey = @ForeignKey(name = "FK_PC_COMMANDE"))
 	private Commande commande;
 	private int quantite;
@@ -84,8 +84,9 @@ public class ProduitCommande implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ProduitCommande [id=" + id + ", produit=" + produit + ", commande=" + commande + ", quantite="
-				+ quantite + "]";
+		return "ProduitCommande [id=" + id + ", produit=" + produit + ", quantite=" + quantite + "]";
 	}
+
+
 
 }

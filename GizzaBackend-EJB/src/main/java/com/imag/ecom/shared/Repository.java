@@ -32,9 +32,9 @@ public abstract class Repository<T> {
 			logger.logInfo("Entity" + entity.toString() + "has been created");
 			return entity;
 		} catch (Exception e) {
-			getEntityManager().getTransaction().rollback();
+			
 			logger.logError(
-					"We have an error with your request in " + entityClass.getName() + "with error:" + e.getMessage());
+					"We have an error with your request in " + entityClass.toString() + "with error:" + e.getMessage());
 			return null;
 		}
 	}
@@ -45,9 +45,9 @@ public abstract class Repository<T> {
 			logger.logInfo("Entity" + entity.toString() + "has been updated");
 			return entity;
 		} catch (Exception e) {
-			getEntityManager().getTransaction().rollback();
+			
 			logger.logError(
-					"We have an error with your request in " + entityClass.getName() + "with error:" + e.getMessage());
+					"We have an error with your request in " + entityClass.toString() + "with error: " + e.getMessage() + e.getStackTrace());
 			return null;
 		}
 	}
@@ -57,9 +57,9 @@ public abstract class Repository<T> {
 			getEntityManager().remove(getEntityManager().merge(entity));
 			logger.logInfo("Entity" + entity.toString() + "has been removed");
 		} catch (Exception e) {
-			getEntityManager().getTransaction().rollback();
+			
 			logger.logError(
-					"We have an error with your request in " + entityClass.getName() + "with error:" + e.getMessage());
+					"We have an error with your request in " + entityClass.toString() + "with error:" + e.getMessage());
 		}
 	}
 
@@ -68,7 +68,7 @@ public abstract class Repository<T> {
 			return getEntityManager().find(entityClass, id);
 		} catch (Exception e) {
 			logger.logError(
-					"We have an error with your request in " + entityClass.getName() + "with error:" + e.getMessage());
+					"We have an error with your request in " + entityClass.toString() + "with error:" + e.getMessage());
 			return null;
 		}
 	}

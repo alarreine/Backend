@@ -77,8 +77,10 @@ public class Categorie implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Categorie [id=" + id + ", libelle=" + libelle + ", type=" + type + ", produits=" + produits + "]";
+		return "Categorie [id=" + id + ", libelle=" + libelle + ", type=" + type + "]";
 	}
+
+
 	
 	
 

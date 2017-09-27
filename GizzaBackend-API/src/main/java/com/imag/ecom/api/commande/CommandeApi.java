@@ -52,27 +52,25 @@ public class CommandeApi {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Commande add(@HeaderParam("Authorization") String token, ItemsCommandes c) {
 		try {
-			Commande commande = new Commande();
-			repository.create(commande);
-			if (c != null) {
+
+			if (c != null && c.getData().size() > 0) {
+				Commande commande = new Commande();
 				User u = userRp.find(TokenServices.getUsername(token));
 				commande.setUser(u);
 				commande.setDate(new Date());
+				repository.create(commande);
 				for (ItemCommande ic : c.getData()) {
 					ProduitCommande pc = new ProduitCommande();
 					Produit produit = produitRp.find(ic.getIdProduit());
-					produitCommandeRp.create(pc);
-					pc.setCommande(commande);
 					pc.setProduit(produit);
 					pc.setQuantite(ic.getQuantite());
+					pc.setCommande(commande);
 					commande.addProduitCommande(pc);
-					produit.addProduitCommande(pc);
-					produitCommandeRp.update(pc);
+
 				}
-
+				repository.update(commande);
+				return commande;
 			}
-
-			return repository.find(commande.getId());
 
 		} catch (NullPointerException e) {
 			e.printStackTrace();

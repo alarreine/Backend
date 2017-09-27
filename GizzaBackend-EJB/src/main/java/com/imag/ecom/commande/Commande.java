@@ -1,8 +1,9 @@
 package com.imag.ecom.commande;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -36,9 +37,9 @@ public class Commande implements Serializable {
 	private Long id;
 	@Temporal(TemporalType.DATE)
 	private Date date;
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "commande", fetch = FetchType.EAGER)
-	private Set<ProduitCommande> produitsCommandes = new HashSet<ProduitCommande>();
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(cascade = {CascadeType.PERSIST,CascadeType.MERGE}, mappedBy = "commande", fetch = FetchType.EAGER)
+	private List<ProduitCommande> produitsCommandes = new ArrayList<ProduitCommande>();
+	@ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_user", foreignKey= @ForeignKey(name="FK_COMMANDE_USER"))
 	private User user;
 	private static final long serialVersionUID = 1L;
@@ -71,11 +72,11 @@ public class Commande implements Serializable {
 		this.user = user;
 	}
 
-	public Set<ProduitCommande> getProduitsCommandes() {
+	public List<ProduitCommande> getProduitsCommandes() {
 		return produitsCommandes;
 	}
 
-	public void setUserGroups(Set<ProduitCommande> ProduitsCommandes) {
+	public void setUserGroups(List<ProduitCommande> ProduitsCommandes) {
 		this.produitsCommandes = ProduitsCommandes;
 	}
 
@@ -83,8 +84,13 @@ public class Commande implements Serializable {
 		this.produitsCommandes.add(produitCommande);
 	}
 
-	public void setProduitsCommandes(Set<ProduitCommande> produitsCommandes) {
+	public void setProduitsCommandes(List<ProduitCommande> produitsCommandes) {
 		this.produitsCommandes = produitsCommandes;
+	}
+
+	@Override
+	public String toString() {
+		return "Commande [id=" + id + ", date=" + date + ", user=" + user + "]";
 	}
 
 
