@@ -43,8 +43,8 @@ public abstract class Produit implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_categorie", foreignKey = @ForeignKey(name = "FK_PROD_CAT"))
 	private Categorie categorie;
-	@OneToMany(fetch = FetchType.EAGER,mappedBy = "produit")
-	private List<ProduitCommande> produitsCommandes = new ArrayList<ProduitCommande>();
+//	@OneToMany(fetch = FetchType.EAGER, mappedBy = "produit")
+//	private List<ProduitCommande> produitsCommandes;
 	private static final long serialVersionUID = 1L;
 
 	public Produit() {
@@ -97,7 +97,7 @@ public abstract class Produit implements Serializable {
 		}
 		return this.categorie.getId();
 	}
-	
+
 	public String getType() {
 		return this.categorie.getType().toString();
 	}
@@ -106,17 +106,17 @@ public abstract class Produit implements Serializable {
 		this.categorie = categorie;
 	}
 
-	public List<ProduitCommande> getProduitsCommandes() {
-		return produitsCommandes;
-	}
-
-	public void setUserGroups(List<ProduitCommande> ProduitsCommandes) {
-		this.produitsCommandes = ProduitsCommandes;
-	}
-
-	public void addProduitCommande(ProduitCommande produitCommande) {
-		this.produitsCommandes.add(produitCommande);
-	}
+//	public List<ProduitCommande> getProduitsCommandes() {
+//		return produitsCommandes;
+//	}
+//
+//	public void setUserGroups(List<ProduitCommande> ProduitsCommandes) {
+//		this.produitsCommandes = ProduitsCommandes;
+//	}
+//
+//	public void addProduitCommande(ProduitCommande produitCommande) {
+//		this.produitsCommandes.add(produitCommande);
+//	}
 
 	@Override
 	public String toString() {
@@ -124,7 +124,4 @@ public abstract class Produit implements Serializable {
 				+ "]";
 	}
 
-
-
-	
 }
